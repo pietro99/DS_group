@@ -1,0 +1,405 @@
+---
+title: "Coursework assignment A - 2022-2023"
+subtitle: "CS4125 Seminar Research Methodology for Data Science"
+author: "Student names"
+date: "16/04/2023"
+output:
+   pdf_document:
+      fig_caption: true
+      number_sections: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+\tableofcontents
+
+
+# Part 1 - Design and set-up of true experiment 
+
+
+## The motivation for the planned research 
+(Max 200 words)
+
+## The theory underlying the research  
+(Max 200 words) Preferable based on theories reported in literature
+
+
+## Research questions 
+The research question that will be examined in an experiment (or alternatively the hypothesis that will be tested in an  experiment)
+
+
+## The related conceptual model 
+This model should include:
+*Independent variable(s)
+*Dependent variable
+*Mediating variable (at least 1)
+*Moderating variable (at least 1)
+
+
+## Experimental Design 
+Experimental Design (the study should have a true experimental design to test a single hypothesis that, for simplicity, includes only independent variable(s) and dependent variable(s). In other words, mediating and moderating variables are not included in the experimental design ) 
+
+## Experimental procedure 
+Describe how the experiment will be executed step by step
+
+
+## Measures
+Describe the measure that will be used
+
+## Participants
+Describe which participants will recruit in the study and how they will be recruited
+
+## Suggested statistical analyses
+Describe the statistical test you suggest to care out on the collected data
+
+# Part 2 - Generalized linear models
+
+## Question 1 Twitter sentiment analysis (Between groups - single factor) 
+
+### Conceptual model
+Make a conceptual model for the following research question: Is there a difference in the sentiment of the tweets related to the different individuals/organisations?
+
+### Model description
+
+Describe the mathematical model fitted on the most extensive model. (hint, look at the mark down file of the lectures to see example on formulate mathematical models in markdown). Assume a Gaussian distribution for the tweet’s sentiments rating. Justify the priors.
+
+### Generate Synthetic data
+Create a synthetic data set with a clear difference between tweets’ sentiments of celebrities for verifying your analysis later on. Report the values of the coefficients of the linear model used to generate synthetic data. (hint, look at class lecture slides of lecture on Generalized linear models for example to create synthetic data)
+
+
+```{r}
+#include your code for generating the synthetic data
+```
+
+### Collecting tweets, and data preparation
+Include the annotated R script (excluding your personal Keys and Access Tokens information), but put echo=FALSE, so code is not included in the output pdf file.
+
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, include = FALSE}
+
+#during writing you could add "eval = FALSE",  kntr will than not run this code chunk (take some time do)
+
+setwd("~/surfdrive/Teaching/own teaching/IN4125 - Seminar Research Methodology for Data Science/2019/coursework A") 
+# apple , note use / instead of \, which used by windows
+
+
+#install.packages("twitteR", dependencies = TRUE)
+library(twitteR)
+#install.packages("RCurl", dependencies = T)
+library(RCurl)
+#install.packages("bitops", dependencies = T)
+library(bitops)
+#install.packages("plyr", dependencies = T)
+library(plyr)
+#install.packages('stringr', dependencies = T)
+library(stringr)
+#install.packages("NLP", dependencies = T)
+library(NLP)
+#install.packages("tm", dependencies = T)
+library(tm)
+#install.packages("wordcloud", dependencies=T)
+#install.packages("RColorBrewer", dependencies=TRUE)
+library(RColorBrewer)
+library(wordcloud)
+#install.packages("reshape", dependencies=T)
+library(reshape)
+
+################### functions
+
+  
+clearTweets <- function(tweets, excl) {
+  
+  tweets.text <- sapply(tweets, function(t)t$getText()) #get text out of tweets 
+
+  
+  tweets.text = gsub('[[:cntrl:]]', '', tweets.text)
+  tweets.text = gsub('\\d+', '', tweets.text)
+  tweets.text <- str_replace_all(tweets.text,"[^[:graph:]]", " ") #remove graphic
+  
+  
+  corpus <- Corpus(VectorSource(tweets.text))
+  
+  corpus_clean <- tm_map(corpus, removePunctuation)
+  corpus_clean <- tm_map(corpus_clean, content_transformer(tolower))
+  corpus_clean <- tm_map(corpus_clean, removeWords, stopwords("english"))
+  corpus_clean <- tm_map(corpus_clean, removeNumbers)
+  corpus_clean <- tm_map(corpus_clean, stripWhitespace)
+  corpus_clean <- tm_map(corpus_clean, removeWords, c(excl,"http","https","httpst"))
+  
+
+  return(corpus_clean)
+} 
+
+
+## capture all the output to a file.
+
+################# Collect from Twitter
+
+# for creating a twitter app (apps.twitter.com) see youtube https://youtu.be/lT4Kosc_ers
+#consumer_key <-'your key'
+#consumer_scret <- 'your secret'
+#access_token <- 'your access token'
+#access_scret <- 'your access scret'
+
+source("wpb_twitter.R") #this file will set my personal variables for my twitter app, adjust the name of this file. use the provide template your_twitter.R
+
+setup_twitter_oauth(consumer_key,consumer_scret, access_token,access_scret) #connect to  twitter app
+
+
+##### This example uses the following 3 celebrities: Donald Trump, Hillary Clinton, and Bernie Sanders
+##  You should replace this with your own celebrities, at least 3, but more preferred 
+##  Note that it will take the computer some to collect the tweets
+
+tweets_T <- searchTwitter("#trump", n=100, lang="en", resultType="recent") #n recent tweets about Donald Trump, in English ( Twitter sometimes modifies number of tweets that you can collect)
+tweets_C <- searchTwitter("#hillary", n=100, lang="en", resultType="recent") #n recent tweets about Hillary Clinton
+tweets_B <- searchTwitter("#bernie", n=100, lang="en", resultType="recent") #n recent tweets about Bernie Sanders
+
+#overtime Twitter allow fewer tweets to be collected so you might have to adjust this number
+
+######################## WordCloud
+### This not requires in the assignment, but still fun to do 
+
+# based on https://youtu.be/JoArGkOpeU0
+
+#corpus_T<-clearTweets(tweets_T, c("trump","amp","realdonaldtrump","trumptrain","donald","trumps","alwaystrump")) #remove also some campain slogans
+#wordcloud(corpus_T, max.words=50)
+
+#corpus_C<-clearTweets(tweets_C, c("hillary","amp","clinton","hillarys"))
+#wordcloud(corpus_C,  max.words=50)
+
+#corpus_B<-clearTweets(tweets_B, c("bernie", "amp", "sanders","bernies"))
+#wordcloud(corpus_B,  max.words=50)
+##############################
+
+######################## Sentiment analysis
+
+tweets_T.text <- laply(tweets_T, function(t)t$getText()) #get text out of tweets 
+tweets_C.text <- laply(tweets_C, function(t)t$getText()) #get text out of tweets
+tweets_B.text <- laply(tweets_B, function(t)t$getText()) #get text out of tweets
+
+
+
+#taken from https://github.com/mjhea0/twitter-sentiment-analysis
+pos <- scan('positive-words.txt', what = 'character', comment.char=';') #read the positive words
+neg <- scan('negative-words.txt', what = 'character', comment.char=';') #read the negative words
+
+source("sentiment3.R") #load algorithm
+# see sentiment3.R form more information about sentiment analysis. It assigns a intereger score
+# by subtracting the number of occurrence of negative words from that of positive words
+
+analysis_T <- score.sentiment(tweets_T.text, pos, neg)
+analysis_C <- score.sentiment(tweets_C.text, pos, neg)
+analysis_B <- score.sentiment(tweets_B.text, pos, neg)
+
+
+sem<-data.frame(analysis_T$score, analysis_C$score, analysis_B$score)
+
+
+semFrame <-melt(sem, measured=c(analysis_T.score,analysis_C.score, analysis_B.score ))
+names(semFrame) <- c("Candidate", "score")
+semFrame$Candidate <-factor(semFrame$Candidate, labels=c("Donald Trump", "Hillary Clinton", "Bernie Sanders")) # change the labels for your individual/organisation
+
+#The data you need for the analyses can be found in semFrame
+
+```
+
+
+### Visual inspection Mean and distribution sentiments
+Graphically examine the mean and distribution sentiments of tweets for each individual/organisation, and provide interpretation
+
+```{r}
+#include your analysis code and output in the document
+```
+
+### Frequentist approach
+
+#### Analysis verification
+Verify your model analysis with synthetic data and show that it can reproduce the coefficients of the linear model that you used to generate the synthetic data set. Provide a short interpretation of the results, with a reflection of AICc, F-value, p-value etc.
+
+```{r}
+#include your analysis code of synthetic data and output in the document
+```
+
+
+#### Linear model
+Redo the analysis now on the real tweet data set. Provide a short interpretation of the results, with an interpretation of AICc, F-value, p-value, etc.
+
+```{r}
+#include your analysis code and output in the document
+```
+
+#### Post Hoc analysis
+If a model that includes the individual better explains the sentiments of tweets than a model without such predictor, conduct a posthoc analysis with, e.g., Bonferroni correction to examine which celebrity tweets differ from the other individual’s tweets. Provide a brief interpretation of the results.
+
+```{r}
+#include your code and output in the document
+```
+
+#### Report section for a scientific publication
+Write a small section for a scientific publication (journal or a conference), in which you report the results of the analyses, and explain the conclusions that can be drawn in a format commonly used by the scientific community Look at Brightspace for examples papers and guidelines on how to do this. (Hint, there are strict guidelines for reporting statistical results in paper, I expect you to follow these here) 
+
+### Bayesian Approach
+For the Bayesian analyses, use the rethinking and/or BayesianFirstAid library
+#### Analysis verification
+Verify your model analysis with synthetic data and show that it can reproduce the coefficients of the linear model that you used to generate the synthetic data set. Provide a short interpretation of the results, with a reflection of WAIC, and 95% credibility interval of coefficients for individual celebrities.
+
+```{r}
+#include your analysis code of synthetic data and output in the document
+```
+
+#### Model comparison
+Redo the analysis on the actual tweet data set. Provide a short interpretation of the results, with a reflection of WAIC, and 95% credibility interval of coefficients for individual celebrities.
+
+```{r}
+#include your code and output in the document
+```
+
+#### Comparison individual/organisation pair
+Compare sentiments of individual pairs and provide a brief interpretation (e.g. CIs) 
+
+```{r}
+#include your code and output in the document
+```
+
+## Question 2 - Website visits (between groups - Two factors)
+
+### Conceptual model
+Make a conceptual model underlying this research question
+
+### Specific Mathematical model
+Describe the mathematical model that you fit on the data. Take for this the complete model that you fit on the data. Also, explain your selection for the priors. Assume Gaussian distribution for the number of page visits.
+
+### Create Synthetic data
+Create a synthetic data set with a clear interaction effect between the two factors for verifying your analysis later on. Report the values of the coefficients of the linear model used to generate synthetic data.
+
+```{r}
+#include your code for generating the synthetic data
+```
+
+
+### Visual inspection
+Graphically examine the mean page visits for the four different conditions. Give a short explanation of the figure.
+
+
+```{r}
+#include your code and output in the document
+```
+
+
+### Frequentist Approach
+
+#### Model verification
+Verify your model analysis with synthetic data and show that it can reproduce the coefficients of the linear model that you used to generate the synthetic data set. Provide a short interpretation of the results, with a reflection of AICc, F-value, p-value etc.
+
+```{r}
+#include your analysis code of synthetic data and output in the document
+```
+
+#### Model analysis with Gaussian distribution assumed
+Redo the analysis now on the real data set. Assume Gaussian distribution for the number of page visits. Provide a short interpretation of the results, with an interpretation of AICc, F-value, p-value, etc.
+
+
+```{r}
+#include your code and output in the document
+```
+
+#### Assumption analysis
+Redo the analysis on the real tweet data set.  This time assume a Poisson distribution for the number of page visits. For the best fitting models (Gaussian and Poisson), examine graphically the distribution of the residuals for the model that assumes Gaussian distribution and the model that assumes Poisson distribution. Give a brief interpretation of Poisson and Gaussian distribution assumptions.
+
+```{r}
+#include your code and output in the document
+```
+
+
+#### Simple effect analysis
+Continue with the model that assumes a Poisson distribution. If the analysis shows a significant two-way interaction effect, conduct a Simple Effect analysis to explore this interaction effect in more detail. Provide a brief interpretation of the results.
+
+
+```{r}
+#include your code and output in the document
+```
+
+
+#### Report section for a scientific publication
+Write a small section for a scientific publication, in which you report the results of the analyses, and explain the conclusions that can be drawn.
+
+### Bayesian Approach
+For the Bayesian analyses, use the rethinking and/or BayesianFirstAid library
+
+####  Verification Analysis
+Verify your model analysis with synthetic data and show that it can reproduce the coefficients of the linear model that you used to generate the synthetic data set. Provide a short interpretation of the results, with a reflection of WAIC, and 95% credibility interval of coefficients for individual celebrities.
+
+
+```{r}
+#include your analysis code of synthetic data and output in the document
+```
+
+
+#### Model description
+
+Describe the mathematical model fitted on the most extensive model. (hint, look at the mark down file of the lectures to see example on formulate mathematical models in markdown). Assume Poisson distribution for the number of page visits. Justify the priors.
+
+#### Model comparison
+
+Redo the analysis on actual data. Assume Poisson distribution for the number of page visits. Provide brief interpretation of the analysis results (e.g. WAIC, and 95% credibility interval of coefficients).
+
+```{r}
+#include your code and output in the document
+```
+
+
+
+# Part 3 - Multilevel model
+
+## Visual inspection
+Use graphics to inspect the distribution of the score, and relationship between session and score. Give a short description of the figure.
+
+
+```{r}
+#include your code and output in the document
+```
+
+## Frequentist approach
+
+### Multilevel analysis
+Conduct multilevel analysis and calculate 95% confidence intervals thereby assuming a Gaussian distribution for the scores, determine:
+
+* If session has an impact on people score
+* If there is significant variance between the participants in their score
+
+
+```{r}
+#include your code and output in the document
+```
+
+### Report section for a scientific publication
+Write a small section for a scientific publication, in which you report the results of the analyses, and explain the conclusions that can be drawn.
+
+## Bayesian approach
+For the Bayesian analyses, use the rethinking and/or BayesianFirstAid library
+
+### Model description
+
+Describe the mathematical model fitted on the most extensive model. (hint, look at the mark down file of the lectures to see example on formulate mathematical models in markdown).  Assume a Gaussian distribution for the scores. Justify the priors.
+
+### Model comparison
+
+Compare models with with increasing complexity. 
+
+```{r}
+#include your code and output in the document
+```
+
+### Estimates examination
+
+Examine the estimate of parameters of the model with best fit, and provide a brief interpretation.
+
+
+```{r}
+#include your code and output in the document
+```
+
+
