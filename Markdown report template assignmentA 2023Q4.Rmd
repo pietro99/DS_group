@@ -21,7 +21,11 @@ knitr::opts_chunk$set(echo = TRUE)
 
 
 ## The motivation for the planned research 
-(Max 200 words)
+  - Introduced large language models 
+  - chatbots are supposed to imporove user experience by making it more natural.
+  - is this the case in the newily introduced Bing search engine (GPT based).
+  - there is a lot of hype but it is unclear if it acctually improves user 
+    experience
 
 ## The theory underlying the research  
 (Max 200 words) Preferable based on theories reported in literature
@@ -360,6 +364,36 @@ Use graphics to inspect the distribution of the score, and relationship between 
 
 ```{r}
 #include your code and output in the document
+library(sm)
+library(car)
+
+set0 <- read.csv("data/set0.csv")
+#stem leaf plot is useless in this case
+#stem(set1$score, atom = 1e-04)
+
+hist(set0$score, xlab="scores", main="score frequencies histogram")
+hist(set0$session, xlab="sessions", main="session frequencies histogram")
+
+# Define color gradient
+color_range <- colorRampPalette(c("blue", "red"))
+
+# Assign colors based on session number
+color_vector <- color_range(length(unique(set0$session)))[as.numeric(unique(set0$session))]
+lty_vector <- rep(1, each=length(unique(set0$session)))
+
+note_text <- "17"
+
+
+
+den <- sm.density.compare(set0$score, group = set0$session, h=2.5, col= color_vector, lty=lty_vector)
+title(main="score density by session")
+#text(x=0, labels ="17", adj=c(-16,-18))
+
+legend("topleft", den$levels, lty=den$lty, lwd=den$lwd, y.intersp=1, ncol=3, col=den$col, title="session number")
+boxplot(score ~ session, data=set0)
+boxplot(session ~ score, data=set0)
+scatterplot(score ~ session, data=set0)
+
 ```
 
 ## Frequentist approach
