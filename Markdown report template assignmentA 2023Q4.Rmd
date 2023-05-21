@@ -146,55 +146,44 @@ clearTweets <- function(tweets, excl) {
 #access_token <- 'your access token'
 #access_scret <- 'your access scret'
 
-source("wpb_twitter.R") #this file will set my personal variables for my twitter app, adjust the name of this file. use the provide template your_twitter.R
-
-setup_twitter_oauth(consumer_key,consumer_scret, access_token,access_scret) #connect to  twitter app
-
-
-##### This example uses the following 3 celebrities: Donald Trump, Hillary Clinton, and Bernie Sanders
-##  You should replace this with your own celebrities, at least 3, but more preferred 
-##  Note that it will take the computer some to collect the tweets
-
-tweets_T <- searchTwitter("#trump", n=100, lang="en", resultType="recent") #n recent tweets about Donald Trump, in English ( Twitter sometimes modifies number of tweets that you can collect)
-tweets_C <- searchTwitter("#hillary", n=100, lang="en", resultType="recent") #n recent tweets about Hillary Clinton
-tweets_B <- searchTwitter("#bernie", n=100, lang="en", resultType="recent") #n recent tweets about Bernie Sanders
+# source("wpb_twitter.R") #this file will set my personal variables for my twitter app, adjust the name of this file. use the provide template your_twitter.R
+# 
+# setup_twitter_oauth(consumer_key,consumer_scret, access_token,access_scret) #connect to  twitter app
+# 
+# 
+# ##### This example uses the following 3 celebrities: Donald Trump, Hillary Clinton, and Bernie Sanders
+# ##  You should replace this with your own celebrities, at least 3, but more preferred 
+# ##  Note that it will take the computer some to collect the tweets
+# 
+# tweets_T <- searchTwitter("#trump", n=100, lang="en", resultType="recent") #n recent tweets about Donald Trump, in English ( Twitter sometimes modifies number of tweets that you can collect)
+# tweets_C <- searchTwitter("#hillary", n=100, lang="en", resultType="recent") #n recent tweets about Hillary Clinton
+# tweets_B <- searchTwitter("#bernie", n=100, lang="en", resultType="recent") #n recent tweets about Bernie Sanders
 
 #overtime Twitter allow fewer tweets to be collected so you might have to adjust this number
 
-######################## WordCloud
-### This not requires in the assignment, but still fun to do 
-
-# based on https://youtu.be/JoArGkOpeU0
-
-#corpus_T<-clearTweets(tweets_T, c("trump","amp","realdonaldtrump","trumptrain","donald","trumps","alwaystrump")) #remove also some campain slogans
-#wordcloud(corpus_T, max.words=50)
-
-#corpus_C<-clearTweets(tweets_C, c("hillary","amp","clinton","hillarys"))
-#wordcloud(corpus_C,  max.words=50)
-
-#corpus_B<-clearTweets(tweets_B, c("bernie", "amp", "sanders","bernies"))
-#wordcloud(corpus_B,  max.words=50)
-##############################
-
 ######################## Sentiment analysis
 
-tweets_T.text <- laply(tweets_T, function(t)t$getText()) #get text out of tweets 
-tweets_C.text <- laply(tweets_C, function(t)t$getText()) #get text out of tweets
-tweets_B.text <- laply(tweets_B, function(t)t$getText()) #get text out of tweets
+tweets_T <- scan('data/tweets_T.txt', what = 'character', comment.char=';', sep="\n")
+tweets_C <- scan('data/tweets_C.txt', what = 'character', comment.char=';', sep="\n")
+tweets_B <- scan('data/tweets_B.txt', what = 'character', comment.char=';', sep="\n")
+# tweets_T.text <- laply(test, function(t)t$getText()) #get text out of tweets
+# tweets_C.text <- laply(tweets_C, function(t)t$getText()) #get text out of tweets
+# tweets_B.text <- laply(tweets_B, function(t)t$getText()) #get text out of tweets
+
 
 
 
 #taken from https://github.com/mjhea0/twitter-sentiment-analysis
-pos <- scan('positive-words.txt', what = 'character', comment.char=';') #read the positive words
-neg <- scan('negative-words.txt', what = 'character', comment.char=';') #read the negative words
+pos <- scan('data/positive-words.txt', what = 'character', comment.char=';') #read the positive words
+neg <- scan('data/negative-words.txt', what = 'character', comment.char=';') #read the negative words
 
 source("sentiment3.R") #load algorithm
-# see sentiment3.R form more information about sentiment analysis. It assigns a intereger score
+# see sentiment3.R form more information about sentiment analysis. It assigns a integer score
 # by subtracting the number of occurrence of negative words from that of positive words
 
-analysis_T <- score.sentiment(tweets_T.text, pos, neg)
-analysis_C <- score.sentiment(tweets_C.text, pos, neg)
-analysis_B <- score.sentiment(tweets_B.text, pos, neg)
+analysis_T <- score.sentiment(tweets_T, pos, neg)
+analysis_C <- score.sentiment(tweets_C, pos, neg)
+analysis_B <- score.sentiment(tweets_B, pos, neg)
 
 
 sem<-data.frame(analysis_T$score, analysis_C$score, analysis_B$score)
@@ -207,44 +196,104 @@ semFrame$Candidate <-factor(semFrame$Candidate, labels=c("Donald Trump", "Hillar
 #The data you need for the analyses can be found in semFrame
 
 ```
+```{r}
+# Synthesis of a test data set.
+sequence <- seq(-10, 10, by = .1)
+test_T = rnorm(sequence, mean=-5, sd=2)
+test_C = rnorm(sequence, mean=0, sd=2)
+test_B = rnorm(sequence, mean=5, sd=2)
+
+sem_test<-data.frame(test_T, test_C, test_B)
+
+semFrameTest <-melt(sem_test, measured=c(test_T, test_C, test_B))
+names(semFrameTest) <- c("Candidate", "score")
+semFrameTest$Candidate <-factor(semFrameTest$Candidate, labels=c("Donald Trump", "Hillary Clinton", "Bernie Sanders"))
+```
 
 ### Visual inspection Mean and distribution sentiments
 
-Graphically examine the mean and distribution sentiments of tweets for each individual/organisation, and provide interpretation
+The data distributions show that each individual seems to have a sentiment with a normal distribution with a mean around 0. For the Trump data, there seem to be more more values with a higher sentiment. If we look at the boxplots, we see that Trump seems to have the most positive sentiment, but he also has more extreme maxima. Hillary also seems to be a bit less positive than Bernie.
 
 ```{r}
 #include your analysis code and output in the document
+trump_inspect = subset(semFrame, (Candidate == "Donald Trump"), select=c(score))
+hillary_inspect = subset(semFrame, (Candidate == "Hillary Clinton"), select=c(score))
+bernie_inspect = subset(semFrame, (Candidate == "Bernie Sanders"), select=c(score))
+
+hist(trump_inspect$score)
+hist(hillary_inspect$score)
+hist(bernie_inspect$score)
+
+stem(trump_inspect$score)
+stem(hillary_inspect$score)
+stem(bernie_inspect$score)
+
+library(sm)
+sm.density.compare(semFrame$score, semFrame$Candidate, xlab = "sentiment score")
+title(main="Sentiment per individual")
+legend('topright', legend=levels(semFrame$Candidate), col=c('red', 'blue', 'green'), lty=1:2, cex=0.8,
+title="Individual", text.font=4, bg='lightblue')
+
+boxplot(semFrame$score ~ semFrame$Candidate, data=semFrame, main="Sentiment",
+xlab="Individual", ylab="Sentiment")
 ```
 
 ### Frequentist approach
 
 #### Analysis verification
 
-Verify your model analysis with synthetic data and show that it can reproduce the coefficients of the linear model that you used to generate the synthetic data set. Provide a short interpretation of the results, with a reflection of AICc, F-value, p-value etc.
+If we input the synthetic data into the model, we see that the individuals are indeed significant for the sentiment we get out of the tweet. This is what we expected, since this is how we created the data. A summary of the model reveals that the means of the groups in the model are indeed the means that we set of the distribution. This can be seen in the coefficient section below. The p-value with a factor of 10**-16 is way lower than the needed 0.05, which shows us that the individuals have a significant effect on the resulting sentiment. The F-value of 1243 shows us that the variation between sample means is way larger than the variance within samples. This again shows that there is a big difference between the individuals.
 
 ```{r}
 #include your analysis code of synthetic data and output in the document
+model0 <- lm(semFrameTest$score ~ 1, data = semFrameTest) # model without predictor
+model1 <- lm(semFrameTest$score ~ semFrameTest$Candidate, data = semFrameTest) # model with predictor
+anova(model0, model1)
+summary(model1)
+
+# TODO: AICc
 ```
 
 #### Linear model {#linear-model}
 
-Redo the analysis now on the real tweet data set. Provide a short interpretation of the results, with an interpretation of AICc, F-value, p-value, etc.
+If we input the actual data into the model, we see that the individuals are indeed significant for the sentiment we get out of the tweet. This can be concluded by looking at the p and F-value. The p-value with a factor of 10**-6 is way lower than the needed 0.05, which shows us that the individuals have a significant effect on the resulting sentiment. The F-value of 13.478 shows us that the variation between sample means is way larger than the variance within samples. This again shows that there is a difference between the individuals, regarding tweet sentiment.
 
 ```{r}
 #include your analysis code and output in the document
+model0 <- lm(semFrame$score ~ 1, data = semFrame) # model without predictor
+model1 <- lm(semFrame$score ~ semFrame$Candidate, data = semFrame) # model with predictor
+anova(model0, model1)
+summary(model1)
+
+# TODO: AICc
 ```
 
 #### Post Hoc analysis
 
-If a model that includes the individual better explains the sentiments of tweets than a model without such predictor, conduct a posthoc analysis with, e.g., Bonferroni correction to examine which celebrity tweets differ from the other individual's tweets. Provide a brief interpretation of the results.
+If we conduct a bonferroni post hoc analysis, we see that all Donald Trump has a significant difference with both Hillary and Bernie, regarding tweet sentiment. However, we also see that the tweet sentiment difference of Bernie and Hillary is not significant.
+
+The results of the normality tests show us that the spread of tweet sentiments per individual can indeed be seen as a normal distribution. This confirms the normality assumption.
+
+The results of the levene test show that we can indeed assume the individual normal distributions to have the same variance.
+
+So the post-hoc analysis shows that our assumptions of the date could indeed be made.
 
 ```{r}
 #include your code and output in the document
+pairwise.t.test(semFrame$score, semFrame$Candidate,
+paired = FALSE, p.adjust.method = "bonferroni")
+plot(model1)
+
+library(car)
+tapply(semFrame$score, semFrame$Candidate, shapiro.test)
+leveneTest(semFrame$score, semFrame$Candidate)
 ```
 
 #### Report section for a scientific publication
 
-Write a small section for a scientific publication (journal or a conference), in which you report the results of the analyses, and explain the conclusions that can be drawn in a format commonly used by the scientific community Look at Brightspace for examples papers and guidelines on how to do this. (Hint, there are strict guidelines for reporting statistical results in paper, I expect you to follow these here)
+The analysis focuses on the effect of an individual on the sentiment of their tweets. In the experiment, two models are created. The first model only has an intercept and no additional information about the individual that tweeted the tweet. The second model does have this information. The experiment has shown that the addition of data about the individual significantly improves the model (F=13.478, p=2.496e-06). 
+
+Moreover, a post-hoc analysis of the experiment was conducted. This showed that the sentiment differences between Donald Trump and Hillary Clinton (p=5.5e-06) and Bernie Sanders (p=0.00024) were significant. However, the sentiment difference between Hillary and Bernie (p=1) was not significant. The post-hoc analysis also showed that the model assumptions regarding normality and equal variances could be made. The Shapiro-Wilk normality tests showed that for both Trump (W = 0.85938, p-value = 2.676e-08), Hillary (W = 0.91847, p-value = 1.168e-05) and Bernie (W = 0.92669, p-value = 3.247e-05) the distributions can be regarded as normal distributions. Finally, Levene's test for homogeneity of variances showed that all distributions indeed have equal variances (F=14.217, Pr(>F)=1.269e-06).
 
 ### Bayesian Approach
 
