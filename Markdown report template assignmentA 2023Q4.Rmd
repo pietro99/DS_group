@@ -297,26 +297,81 @@ Moreover, a post-hoc analysis of the experiment was conducted. This showed that 
 
 ### Bayesian Approach
 
-For the Bayesian analyses, use the rethinking and/or BayesianFirstAid library \#### Analysis verification Verify your model analysis with synthetic data and show that it can reproduce the coefficients of the linear model that you used to generate the synthetic data set. Provide a short interpretation of the results, with a reflection of WAIC, and 95% credibility interval of coefficients for individual celebrities.
+For the Bayesian analyses, use the rethinking and/or BayesianFirstAid library 
+
+#### Analysis verification 
+Verify your model analysis with synthetic data and show that it can reproduce the coefficients of the linear model that you used to generate the synthetic data set. Provide a short interpretation of the results, with a reflection of WAIC, and 95% credibility interval of coefficients for individual celebrities.
+
+We fit two models, a model with only an intercept and a model with the relation between sentiment and individual added. The second model has a better fit, since its WAIC value is lower than the model without the additional relation.
+
+We can see that the means of the synthetic data are correctly reproduced by the second model. a[1], a[2] and a[3] correspond to the synthetic Trump, Hillary and Bernie data. Also sigma of 1.98 is almost a precise reproduction of the actual sd of 2. For a[1], a[2] and a[3] the 95% credible intervals are [-5.18,-4.63], [-0.51,0.05] and [4.66,5.21] respectively.
 
 ```{r}
+library(rethinking)
 #include your analysis code of synthetic data and output in the document
+da <- subset(semFrameTest, select = c(score, Candidate))
+m0 <-map2stan(
+  alist(
+    score ~ dnorm(mu, sigma),
+    mu <- a,
+    a ~ dnorm(0, 10),
+    sigma ~ dunif(0.001, 20)
+  ), data = da, iter = 10000, chains = 4, cores = 4
+)
+m1 <-map2stan(
+  alist(
+    score ~ dnorm(mu, sigma),
+    mu <- a[Candidate] ,
+    a[Candidate] ~ dnorm(0, 10),
+    sigma ~ dunif(0.001, 20)
+  ), data = da, iter = 10000, chains = 4, cores = 4
+)
+precis(m1, depth = 2, prob = .95)
+compare(m0, m1)
 ```
 
 #### Model comparison
 
 Redo the analysis on the actual tweet data set. Provide a short interpretation of the results, with a reflection of WAIC, and 95% credibility interval of coefficients for individual celebrities.
 
+Again we make two models, one with only intercept and one with an additional relation to the individual. The WAIC shows that the model with the additional relation is better than the model with only intercept. The 95% credible intervals are [0.74,1.34] for Trump, [-0.32,0.29] for Hillary and [-0.14,0.48] for Bernie. It shows that there is no overlap between Trump and any other in the credible intervals, but there is some overlap between Hillary and Bernie.
+
 ```{r}
 #include your code and output in the document
+dat <- subset(semFrame, select = c(score, Candidate))
+m0 <-map2stan(
+  alist(
+    score ~ dnorm(mu, sigma),
+    mu <- a ,
+    a ~ dnorm(0, 10),
+    sigma ~ dunif(0.001, 20)
+  ), data = dat, iter = 10000, chains = 4, cores = 4
+)
+m1 <-map2stan(
+  alist(
+    score ~ dnorm(mu, sigma),
+    mu <- a[Candidate] ,
+    a[Candidate] ~ dnorm(0, 10),
+    sigma ~ dunif(0.001, 20)
+  ), data = dat, iter = 10000, chains = 4, cores = 4
+)
+precis(m1, depth = 2, prob = .95)
+compare(m0, m1)
 ```
 
 #### Comparison individual/organisation pair
 
-Compare sentiments of individual pairs and provide a brief interpretation (e.g. CIs)
+We compare the three possible pairs, and we see basically the same results as in the frequentist approach. The 95% credible intervals with Trump both do not include 0, which makes it likely that the tweet sentiments of the others are not equal to those of Trump. We can also see that the 95% credible interval of Hillary and Bernie does contain 0, which still maintains the possibility that there is not a difference in tweet sentiments between these two individuals.
 
 ```{r}
 #include your code and output in the document
+post <- extract.samples(m1, n=1e5)
+diffhill_trump <- post$a[,1] - post$a[,2]
+diffhill_bernie <- post$a[,2] - post$a[,3]
+difftrump_bernie <- post$a[,1] - post$a[,3]
+PI(diffhill_trump, prob = 0.95 )
+PI(diffhill_bernie, prob = 0.95 )
+PI(difftrump_bernie, prob = 0.95 )
 ```
 
 ## Question 2 - Website visits (between groups - Two factors)
