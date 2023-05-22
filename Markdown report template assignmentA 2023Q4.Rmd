@@ -380,7 +380,7 @@ PI(difftrump_bernie, prob = 0.95 )
 
 Make a conceptual model underlying this research question
 
-![](D:\seminar\assignment\CM.jpg)
+![](CM.jpg)
 
 ### Specific Mathematical model
 
@@ -461,7 +461,7 @@ ggplot(mean_data, aes(x = version, y = page_visits, fill = factor(portal))) +
   theme_bw()
 ```
 
-![](D:\seminar\assignment\visual_inspection_2.jpg)
+![](visual_inspection_2.jpg)
 
 I conducted a simple effect analysis to examine the influence of one independent variable on different levels of another independent variable. The analysis revealed that the combination of the new version and web portal for companies resulted in a highest number of page visits. Furthermore, regardless of the website version, the portal for companies showed a higher number of page visits compared to the portal for consumers. Additionally, irrespective of the portal, the old version exhibited fewer page visits compared to the new version.
 
@@ -586,9 +586,9 @@ hist(poisson_residuals, breaks = 30, col = "lightblue", main = "Poisson Model Re
 hist(gaussian_residuals, breaks = 30, col = "lightblue", main = "Gaussian Model Residuals")
 ```
 
-![](D:\seminar\assignment\gaussian.jpg)
+![](gaussian.jpg)
 
-![poisson](D:\seminar\assignment\poisson.jpg)
+![poisson](poisson.jpg)
 
 Both the Gaussian and Poisson residuals appear to follow a normal distribution, which suggests that the Gaussian model is a better fit for the data.
 
@@ -648,7 +648,7 @@ Paper: [Effects of different real-time feedback types on human performance in hi
 
 Result:
 
-![](D:\seminar\assignment\table.jpg)
+![](table.jpg)
 
 
 
