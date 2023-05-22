@@ -30,31 +30,42 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Research questions
 
-The research question that will be examined in an experiment (or alternatively the hypothesis that will be tested in an experiment)
+How does the integration of chat gpt affect the user experience in the new bing search engine?
 
 ## The related conceptual model
 
-This model should include: *Independent variable(s)* Dependent variable *Mediating variable (at least 1)* Moderating variable (at least 1)
+Independent variable: Search Mode - categorial variable - ChatGPT, standard
+Dependent variable： user experiences
+Mediating variable (at least 1)：session length, relevance of results
+Moderating variable (at least 1): Experience with chatbots
 
 ## Experimental Design
 
-Experimental Design (the study should have a true experimental design to test a single hypothesis that, for simplicity, includes only independent variable(s) and dependent variable(s). In other words, mediating and moderating variables are not included in the experimental design )
+Hypothesis: the use of chatGPT has a positive effect on user experience during search.
+
+Design: we use a within-subject experiment. First each participant gets a set of questions to which they should find the answer using the regular Bing search engine. Then, the user experience is evaluated using a questionnaire. Afterwards, the participant is again presented with a new set of questions to which they should find the answers using the search engine with the chatGPT integration. The user experience is again evaluated using a questionnaire. To make sure that the type of questions are equally hard between the two search experiments, we randomly select half of the total number of questions for each of the experiments.
+
 
 ## Experimental procedure
 
-Describe how the experiment will be executed step by step
+A room is prepared with a laptop with two search engines in it: search engine 1 is a standard version of Bing, search engine 2 is Bing with Chat-GPT integration.
+Each participant is called into the room and is given a set of questions to answer or find information for. The participant uses the Bing search engine to find information for those questions. Afterwards the user is given a questionnaire to answer. Then, the participant is given a new set of questions and uses the Bing with Chat-GPT engine after which he/she is given the same questionnaire again. Break up order of questions.
 
 ## Measures
 
-Describe the measure that will be used
+We use a questionnaire that should give us an indication of the perceived user experience of the participants for both the normal search engine and the chatGPT integrated search engine. 
+Type of question scale
+Ordinal, nominal,  likert, etc.
+The questionnair is given directly to the participants after each trial with a search engine.
+We evaluate perceived user experience by a set of categories, e.g. speed to find the answer, readability of the answer, overall satisfaction. Interval likert scale. Reversing scores.
 
 ## Participants
 
-Describe which participants will recruit in the study and how they will be recruited
+We want to find a group of participants in Delft as diverse as possible, because we want to find the general user experience improvement. If we only take a subsample of the population, like elderly people or students, we do not get a very general idea and loose external validity.  We need 119 people, because we use a Likert scale using intervals. This provides us with a 95% confidence interval.
 
 ## Suggested statistical analyses
 
-Describe the statistical test you suggest to care out on the collected data
+We want to find the difference between the user experience to see if it has increased. This means that the results of the two experiments have to be paired with each other. The results of the two experiments are dependent, because a participant maybe in general already gives higher ratings. So this means that with our interval questions, we could use a paired sample t-test or repeated measure ANOVA.
 
 # Part 2 - Generalized linear models
 
@@ -62,33 +73,16 @@ Describe the statistical test you suggest to care out on the collected data
 
 ### Conceptual model
 
-Make a conceptual model for the following research question: Is there a difference in the sentiment of the tweets related to the different individuals/organisations?
+Individual → Sentiment of tweets
 
 ### Model description
-
-Describe the mathematical model fitted on the most extensive model. (hint, look at the mark down file of the lectures to see example on formulate mathematical models in markdown). Assume a Gaussian distribution for the tweet's sentiments rating. Justify the priors.
+The model that we fit on the data is normal distribution where the mean is dependent on the individual that tweeted the tweet. So we have norm(mu, sigma), with mu=a[id_indv], a[id_indv]=norm(..,..) and sigma=unif(..,..).
 
 ### Generate Synthetic data
 
 Create a synthetic data set with a clear difference between tweets' sentiments of celebrities for verifying your analysis later on. Report the values of the coefficients of the linear model used to generate synthetic data. (hint, look at class lecture slides of lecture on Generalized linear models for example to create synthetic data)
 
 ```{r}
-#include your code for generating the synthetic data
-```
-
-### Collecting tweets, and data preparation
-
-Include the annotated R script (excluding your personal Keys and Access Tokens information), but put echo=FALSE, so code is not included in the output pdf file.
-
-```{r, echo=FALSE, message=FALSE, warning=FALSE, include = FALSE, eval=FALSE}
-
-#during writing you could add "eval = FALSE",  kntr will than not run this code chunk (take some time do)
-
-setwd("~/surfdrive/Teaching/own teaching/IN4125 - Seminar Research Methodology for Data Science/2019/coursework A") 
-# apple , note use / instead of \, which used by windows
-
-
-#install.packages("twitteR", dependencies = TRUE)
 library(twitteR)
 #install.packages("RCurl", dependencies = T)
 library(RCurl)
@@ -108,6 +102,35 @@ library(RColorBrewer)
 library(wordcloud)
 #install.packages("reshape", dependencies=T)
 library(reshape)
+
+#include your code for generating the synthetic data
+# Synthesis of a test data set.
+sequence <- seq(-10, 10, by = .1)
+test_T = rnorm(sequence, mean=-5, sd=2)
+test_C = rnorm(sequence, mean=0, sd=2)
+test_B = rnorm(sequence, mean=5, sd=2)
+
+sem_test<-data.frame(test_T, test_C, test_B)
+
+semFrameTest <-melt(sem_test, measured=c(test_T, test_C, test_B))
+names(semFrameTest) <- c("Candidate", "score")
+semFrameTest$Candidate <-factor(semFrameTest$Candidate, labels=c("Donald Trump", "Hillary Clinton", "Bernie Sanders"))
+```
+
+### Collecting tweets, and data preparation
+
+Include the annotated R script (excluding your personal Keys and Access Tokens information), but put echo=FALSE, so code is not included in the output pdf file.
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, include = FALSE, eval=FALSE}
+
+#during writing you could add "eval = FALSE",  kntr will than not run this code chunk (take some time do)
+
+setwd("~/surfdrive/Teaching/own teaching/IN4125 - Seminar Research Methodology for Data Science/2019/coursework A") 
+# apple , note use / instead of \, which used by windows
+
+
+#install.packages("twitteR", dependencies = TRUE)
+
 
 ################### functions
 
@@ -195,19 +218,6 @@ semFrame$Candidate <-factor(semFrame$Candidate, labels=c("Donald Trump", "Hillar
 
 #The data you need for the analyses can be found in semFrame
 
-```
-```{r}
-# Synthesis of a test data set.
-sequence <- seq(-10, 10, by = .1)
-test_T = rnorm(sequence, mean=-5, sd=2)
-test_C = rnorm(sequence, mean=0, sd=2)
-test_B = rnorm(sequence, mean=5, sd=2)
-
-sem_test<-data.frame(test_T, test_C, test_B)
-
-semFrameTest <-melt(sem_test, measured=c(test_T, test_C, test_B))
-names(semFrameTest) <- c("Candidate", "score")
-semFrameTest$Candidate <-factor(semFrameTest$Candidate, labels=c("Donald Trump", "Hillary Clinton", "Bernie Sanders"))
 ```
 
 ### Visual inspection Mean and distribution sentiments
