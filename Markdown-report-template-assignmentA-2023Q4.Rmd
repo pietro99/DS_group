@@ -24,7 +24,13 @@ During this century we have seen the rise of powerful search engines, which are 
 
 ## The theory underlying the research
 
-(Max 200 words) Preferable based on theories reported in literature
+Chat-bots have been successful as interactive information retrieval tools (Tariverdiyeva, Gunay. "Chatbots' Perceived Usability in Information Retrieval Tasks: An Exploratory Analysis." 2019).
+
+New large language models fall under the chatbot category but it is still unclear whether they offer an advantage when it comes to user experience when viewed as information retrieval systems.
+
+In information retrieval many measures have been proposed as proxy variables to measure user experience (Dalrymple, Prudence Ward, and Douglas L. Zweizig. "Users' Experience of Information Retrieval Systems: An Exploration of the Relationship between Search Experience and Affective Measures." Library and Information Science Research 14.2 (1992): 167-81).
+
+More specifically, session duration has been a very popular measure for evaluating interactive information retrieval systems (Kelly, Diane. "Methods for evaluating interactive information retrieval systems with users." Foundations and Trends® in Information Retrieval 3.1--2 (2009): 1-224.)
 
 ## Research questions
 
@@ -831,16 +837,16 @@ freq_m2 <- lme(score ~ session,
 
 sm1 <- summary(freq_m1)
 sm2 <- summary(freq_m2)
-pander(sm1$tTable)
-pander(sm2$tTable)
+pander(sm1$tTable, caption="model 1")
+pander(sm2$tTable, caption="model 2")
 
 #print(sm2)
-pander(anova(freq_m1, freq_m2))
+pander(anova(freq_m1, freq_m2), caption="models comparison")
 
 #include your code and output in the document
 ```
 
-The first model only finds a fixed intercept with value 19.8 but no slope.The second model, which is a bit more complicated, takes into account the effect that session has on the score and found a slope of 0.991 and the intercept now became 13.17. the second model is able to perform much better than the first one as indicated by the AIC scores: 939.2, 1660 respectively.
+The first model only finds a fixed intercept with value 19.8 but no slope. The second model, which is a bit more complicated, takes into account the effect that session has on the score and found a slope of 0.991 and the intercept now became 13.17. the second model is able to perform much better than the first one as indicated by the AIC scores: 939.2, 1660 respectively.
 
 ### Report section for a scientific publication
 
