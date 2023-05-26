@@ -1,0 +1,58 @@
+<mxfile host="app.diagrams.net" modified="2023-05-25T12:20:55.804Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36" etag="L9Sd-P_XMFLqbrWuES2C" version="21.1.5" type="google">
+  <diagram name="Page-1" id="rDwbA2Itf2InCBuYGfdy">
+    <mxGraphModel grid="1" page="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="-AmTW78TxBSCbHrKDdj4-1" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;Bing&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="150" y="210" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="-AmTW78TxBSCbHrKDdj4-2" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;Search Mode&lt;/font&gt;" style="text;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="160" y="180" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="-AmTW78TxBSCbHrKDdj4-3" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;Bing + ChatGPT&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="150" y="250" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="-AmTW78TxBSCbHrKDdj4-5" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;session length&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="400" y="130" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="-AmTW78TxBSCbHrKDdj4-6" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;relevance of results&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="400" y="170" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="-AmTW78TxBSCbHrKDdj4-7" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;user experience&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="650" y="230" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="-AmTW78TxBSCbHrKDdj4-8" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;experience with chatbots&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="400" y="320" width="120" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="-AmTW78TxBSCbHrKDdj4-10" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0;exitDx=0;exitDy=0;entryX=0;entryY=0;entryDx=0;entryDy=0;fillColor=none;strokeWidth=4;" edge="1" parent="1" source="-AmTW78TxBSCbHrKDdj4-3" target="-AmTW78TxBSCbHrKDdj4-6">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="400" y="260" as="sourcePoint" />
+            <mxPoint x="450" y="210" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="-AmTW78TxBSCbHrKDdj4-11" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0;exitDx=0;exitDy=0;fillColor=none;strokeWidth=4;" edge="1" parent="1" source="-AmTW78TxBSCbHrKDdj4-3">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="280" y="260" as="sourcePoint" />
+            <mxPoint x="620" y="250" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="620" y="250" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="-AmTW78TxBSCbHrKDdj4-13" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0;exitDx=0;exitDy=0;fillColor=none;strokeWidth=4;" edge="1" parent="1" source="-AmTW78TxBSCbHrKDdj4-6">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="540" y="200" as="sourcePoint" />
+            <mxPoint x="640" y="240" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="-AmTW78TxBSCbHrKDdj4-14" value="" style="endArrow=classic;html=1;rounded=0;entryX=0;entryY=0;entryDx=0;entryDy=0;fillColor=none;strokeWidth=4;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="-AmTW78TxBSCbHrKDdj4-8">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="490" y="330" as="sourcePoint" />
+            <mxPoint x="460" y="250" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
