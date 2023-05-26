@@ -1,12 +1,13 @@
 ---
 title: "Coursework assignment A - 2022-2023"
-subtitle: "CS4125 Seminar Research Methodology for Data Science"
 author: "Student names"
 date: "16/04/2023"
 output:
-   pdf_document:
-      fig_caption: true
-      number_sections: true
+  pdf_document:
+    fig_caption: yes
+    number_sections: yes
+  word_document: default
+subtitle: CS4125 Seminar Research Methodology for Data Science
 ---
 
 ```{r setup, include=FALSE}
@@ -18,32 +19,20 @@ knitr::opts_chunk$set(echo = TRUE)
 # Part 1 - Design and set-up of true experiment
 
 ## The motivation for the planned research
-During this century we have seen the rise of powerful search engines, which are
-able to quickly provide you with links to the data you are trying to find. A 
-recent development in this field is the introduction of large language models 
-(LLMs). These LLMs have the capability to present the search results in a more
-natural and human-friendly way. The hype around these models has led large
-search engines to quickly incorporate these LLMs in their products. An example
-is Bing, which has incorporated a version of chatGPT into their search browser. 
-The question that remains is if this integration actually leads to an increase
-in perceived user experience or if the enthusiasm is purely based on the current
-hype. By conducting the experiments described below, the goal is to find out 
-if the chatGPT integration in the Bing search engine improves the user experience.
+
+During this century we have seen the rise of powerful search engines, which are able to quickly provide you with links to the data you are trying to find. A recent development in this field is the introduction of large language models (LLMs). These LLMs have the capability to present the search results in a more natural and human-friendly way. The hype around these models has led large search engines to quickly incorporate these LLMs in their products. An example is Bing, which has incorporated a version of chatGPT into their search browser. The question that remains is if this integration actually leads to an increase in perceived user experience or if the enthusiasm is purely based on the current hype. By conducting the experiments described below, the goal is to find out if the chatGPT integration in the Bing search engine improves the user experience.
 
 ## The theory underlying the research
 
 (Max 200 words) Preferable based on theories reported in literature
 
 ## Research questions
-Does the integration of chatGPT into the Bing search engine lead to an increase
-in user experience over the Bing search engine without this integration?
+
+Does the integration of chatGPT into the Bing search engine lead to an increase in user experience over the Bing search engine without this integration?
 
 ## The related conceptual model
 
-Independent variable: Search Mode - categorial variable - ChatGPT, standard
-Dependent variable： user experiences
-Mediating variable (at least 1)：session length, relevance of results
-Moderating variable (at least 1): Experience with chatbots
+Independent variable: Search Mode - categorial variable - ChatGPT, standard Dependent variable: user experiences Mediating variable: (at least 1): session length, relevance of results Moderating variable: (at least 1): Experience with chatbots
 
 ## Experimental Design
 
@@ -51,20 +40,17 @@ Hypothesis: the integration of chatGPT has a positive effect on user experience 
 
 Design: we use a within-subject experiment. All the participants both evaluate the standard search engine and the search engine with chatGPT integration. Because we only have one group, random allocation is not an issue. First each participant gets a set of questions to which they should find the answer using the regular Bing search engine. Then, the user experience is evaluated using a questionnaire. Afterwards, the participant is again presented with a new set of questions to which they should find the answers using the search engine with the chatGPT integration. The user experience is again evaluated using a questionnaire. To make sure that the type of questions are equally hard between the two search experiments, we randomly select half of the total number of questions for each of the experiments.
 
-
 ## Experimental procedure
 
-A room is prepared with a laptop with two search engines in it: search engine 1 is a standard version of Bing, search engine 2 is Bing with Chat-GPT integration.
-Each participant is called into the room and is given a set of questions to answer or find information for. The participant uses the Bing search engine to find information for those questions. Afterwards the user is given a questionnaire to answer. Then, the participant is given a new set of questions and uses the Bing with Chat-GPT engine after which he/she is given the same questionnaire again. Break up order of questions.
+A room is prepared with a laptop with two search engines in it: search engine 1 is a standard version of Bing, search engine 2 is Bing with Chat-GPT integration. Each participant is called into the room and is given a set of questions to answer or find information for. The participant uses the Bing search engine to find information for those questions. Afterwards the user is given a questionnaire to answer. Then, the participant is given a new set of questions and uses the Bing with Chat-GPT engine after which he/she is given the same questionnaire again. Break up order of questions.
 
 ## Measures
 
-We use a questionnaire that should give us an indication of the perceived user experience of the participants for both the normal search engine and the chatGPT integrated search engine.
-The questionnaire consists of a list of statements, where the participants have to fill in whether they agree with a certain statement. The focus of this questionnaire is on the overall user satisfaction, not on the specific results that the search engines return. The answers are based on an interval Likert-scale from 1 to 7. Where a higher number corresponds to a higher agreement with the statement. The answers to the statements are collected and can be compared between the two experiment rounds (with and without chatGPT). The Likert-scale answers allow us to make a clear numerical comparison, which finally is our measure for the experiment.
+We use a questionnaire that should give us an indication of the perceived user experience of the participants for both the normal search engine and the chatGPT integrated search engine. The questionnaire consists of a list of statements, where the participants have to fill in whether they agree with a certain statement. The focus of this questionnaire is on the overall user satisfaction, not on the specific results that the search engines return. The answers are based on an interval Likert-scale from 1 to 7. Where a higher number corresponds to a higher agreement with the statement. The answers to the statements are collected and can be compared between the two experiment rounds (with and without chatGPT). The Likert-scale answers allow us to make a clear numerical comparison, which finally is our measure for the experiment.
 
 ## Participants
 
-We want to find a group of participants in Delft as diverse as possible, because we want to find the general user experience improvement. If we only take a subsample of the population, like elderly people or students, we do not get a very general idea and loose external validity.  We need 119 people, because we use a Likert scale using intervals. This provides us with a 95% confidence interval. We find participants by calling people in Delft and asking if they want to participate in our experiment, after which the experiment is conducted some other moment. This way we hope to get a random sample from the whole population in Delft.
+We want to find a group of participants in Delft as diverse as possible, because we want to find the general user experience improvement. If we only take a subsample of the population, like elderly people or students, we do not get a very general idea and loose external validity. We need 119 people, because we use a Likert scale using intervals. This provides us with a 95% confidence interval. We find participants by calling people in Delft and asking if they want to participate in our experiment, after which the experiment is conducted some other moment. This way we hope to get a random sample from the whole population in Delft.
 
 ## Suggested statistical analyses
 
@@ -76,9 +62,10 @@ We want to find the difference between the user experience to see if it has incr
 
 ### Conceptual model
 
-![image](concep_model_tweets.PNG)
+![](images/concep_model_tweets.PNG)
 
 ### Model description
+
 The model that we fit on the data is normal distribution where the mean is dependent on the individual that tweeted the tweet. This way a new mean is created for each individual. So we have the following equations:
 
 $score \sim dnorm(mu, sigma)$
@@ -90,7 +77,6 @@ $a[Candidate] \sim dnorm(0, 10)$
 $sigma \sim dunif(0.001, 20)$
 
 The priors defined here are loosely based on the visual inspection of the data, which is given below. In these graphs we can see that the sentiment of the tweets for each individual are centered around 0. So we take a distribution for the mean of our model that also has a mean of 0, but we add a standard deviation of 10 to be sure that the actual mean is found. For the sigma of our model, we also choose quite an uninformed prior. It seems that the data has a standard deviation at most 5, but to be sure that it is contained within our prior, we extend it to 20.
-
 
 ### Generate Synthetic data
 
@@ -117,6 +103,7 @@ library(reshape)
 ```
 
 Below the code is given for the creation of the synthetic data. We pick three normal distributions, where each distribution has a different mean, but the same standard deviation (sd=2). The three distributions have a mean of -5, 0 and 5 for T, C and B respectively.
+
 ```{r}
 # Synthesis of a test data set.
 sequence <- seq(-10, 10, by = .1)
@@ -128,9 +115,11 @@ sem_test<-data.frame(test_T, test_C, test_B)
 
 semFrameTest <-melt(sem_test, measured=c(test_T, test_C, test_B))
 names(semFrameTest) <- c("Candidate", "score")
-semFrameTest$Candidate <-factor(semFrameTest$Candidate, labels=c("Donald Trump", "Hillary Clinton", "Bernie Sanders"))
+semFrameTest$Candidate <-factor(semFrameTest$Candidate, labels=c("Donald Trump",
+                                        "Hillary Clinton", "Bernie Sanders"))
 ```
 
+### Collecting tweets, and data preparation
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 
@@ -139,43 +128,77 @@ semFrameTest$Candidate <-factor(semFrameTest$Candidate, labels=c("Donald Trump",
 
 # Include the annotated R script (excluding your personal Keys and Access Tokens information), but put echo=FALSE, so code is not included in the output pdf file.
 
-tweets_T <- scan('data/tweets_T.txt', what = 'character', comment.char=';', sep="\n")
-tweets_C <- scan('data/tweets_C.txt', what = 'character', comment.char=';', sep="\n")
-tweets_B <- scan('data/tweets_B.txt', what = 'character', comment.char=';', sep="\n")
+tweets_T <- scan('data/tweets_T.txt', what = 'character', comment.char=';', 
+                 sep="\n")
 
-pos <- scan('data/positive-words.txt', what = 'character', comment.char=';') #read the positive words
-neg <- scan('data/negative-words.txt', what = 'character', comment.char=';') #read the negative words
+tweets_C <- scan('data/tweets_C.txt', what = 'character', comment.char=';', 
+                 sep="\n")
+
+tweets_B <- scan('data/tweets_B.txt', what = 'character', comment.char=';', 
+                 sep="\n")
+
+#tweets_T.text <- laply(test, function(t)t$getText()) #get text out of tweets
+#tweets_C.text <- laply(tweets_C, function(t)t$getText())#get text out of tweets
+#tweets_B.text <- laply(tweets_B, function(t)t$getText())#get text out of tweets
+
+
+
+
+#taken from https://github.com/mjhea0/twitter-sentiment-analysis
+#read the positive words
+pos <- scan('data/positive-words.txt', what = 'character', comment.char=';') 
+
+#read the negative words
+neg <- scan('data/negative-words.txt', what = 'character', comment.char=';') 
 
 source("sentiment3.R") #load algorithm
-# see sentiment3.R form more information about sentiment analysis. It assigns a integer score
-# by subtracting the number of occurrence of negative words from that of positive words
+# see sentiment3.R form more information about sentiment analysis. 
+# It assigns a integer score
+# by subtracting the number of occurrence of negative words from that 
+# of positive words
 
 analysis_T <- score.sentiment(tweets_T, pos, neg)
 analysis_C <- score.sentiment(tweets_C, pos, neg)
 analysis_B <- score.sentiment(tweets_B, pos, neg)
 
+
 sem<-data.frame(analysis_T$score, analysis_C$score, analysis_B$score)
 
-semFrame <-melt(sem, measured=c(analysis_T.score,analysis_C.score, analysis_B.score ))
+
+semFrame <-melt(sem, measured=c(analysis_T.score,analysis_C.score, 
+                                analysis_B.score ))
+
 names(semFrame) <- c("Candidate", "score")
-semFrame$Candidate <-factor(semFrame$Candidate, labels=c("Donald Trump", "Hillary Clinton", "Bernie Sanders"))
+
+# change the labels for your individual/organisation
+semFrame$Candidate <-factor(semFrame$Candidate, 
+                  labels=c("Donald Trump", "Hillary Clinton", "Bernie Sanders")) 
+
+#The data you need for the analyses can be found in semFrame
 
 ```
 
 ### Visual inspection Mean and distribution sentiments
+
 To get an idea of the distributions of the data, we make some graphs. First, we plot the data distributions of the tweet sentiment per individual. This graph shows that the distributions seem similar, all with a mean around 0. However, for the Trump data, there seem to be more more values with a higher sentiment. If we look at the boxplots, we see that Trump seems to have the most positive sentiment, but he also has more extreme maxima. Hillary seems to be a bit less positive than Bernie.
 
 ```{r}
 #include your analysis code and output in the document
-trump_inspect = subset(semFrame, (Candidate == "Donald Trump"), select=c(score))
-hillary_inspect = subset(semFrame, (Candidate == "Hillary Clinton"), select=c(score))
-bernie_inspect = subset(semFrame, (Candidate == "Bernie Sanders"), select=c(score))
+trump_inspect = subset(semFrame, (Candidate == "Donald Trump"), 
+                       select=c(score))
+
+hillary_inspect = subset(semFrame, (Candidate == "Hillary Clinton"), 
+                         select=c(score))
+
+bernie_inspect = subset(semFrame, (Candidate == "Bernie Sanders"), 
+                        select=c(score))
 
 library(sm)
 sm.density.compare(semFrame$score, semFrame$Candidate, xlab = "sentiment score")
 title(main="Sentiment per individual")
-legend('topright', legend=levels(semFrame$Candidate), col=c('red', 'blue', 'green'), lty=1:2, cex=0.8,
-title="Individual", text.font=4, bg='lightblue')
+legend('topright', legend=levels(semFrame$Candidate), 
+       col=c('red', 'blue', 'green'), lty=1:2, cex=0.8,
+       title="Individual", text.font=4, bg='lightblue')
 
 boxplot(semFrame$score ~ semFrame$Candidate, data=semFrame, main="Sentiment",
 xlab="Individual", ylab="Sentiment")
@@ -185,13 +208,16 @@ xlab="Individual", ylab="Sentiment")
 
 #### Analysis verification
 
-If we input the synthetic data into the model, we see that the individuals are indeed significant for the sentiment we get out of the tweet. This is what we expected, since this is how we created the data. A summary of the model reveals that the means of the groups in the model are indeed the means that we set of the distribution. This can be seen in the coefficient section below. The synthetic Trump data has an estimate around -5, Hillary close to 0 and Bernie close to 5. These are exactly the parameters that we gave the synthetic data. The p-value with a factor of 10**-16 is way lower than the needed 0.05, which shows us that the individuals have a significant effect on the resulting sentiment. The F-value of 1243 shows us that the variation between sample means is way larger than the variance within samples. This again shows that there is a big difference between the individuals.
-Finally, the AIC value comparison shows that model1 has a better fit of the data than model0, since its AIC value is lower.
+If we input the synthetic data into the model, we see that the individuals are indeed significant for the sentiment we get out of the tweet. This is what we expected, since this is how we created the data. A summary of the model reveals that the means of the groups in the model are indeed the means that we set of the distribution. This can be seen in the coefficient section below. The synthetic Trump data has an estimate around -5, Hillary close to 0 and Bernie close to 5. These are exactly the parameters that we gave the synthetic data. The p-value with a factor of 10\*\*-16 is way lower than the needed 0.05, which shows us that the individuals have a significant effect on the resulting sentiment. The F-value of 1243 shows us that the variation between sample means is way larger than the variance within samples. This again shows that there is a big difference between the individuals. Finally, the AIC value comparison shows that model1 has a better fit of the data than model0, since its AIC value is lower.
 
 ```{r}
 #include your analysis code of synthetic data and output in the document
-model0 <- lm(semFrameTest$score ~ 1, data = semFrameTest) # model without predictor
-model1 <- lm(semFrameTest$score ~ semFrameTest$Candidate, data = semFrameTest) # model with predictor
+
+# model without predictor
+model0 <- lm(semFrameTest$score ~ 1, data = semFrameTest)
+
+# model with predictor
+model1 <- lm(semFrameTest$score ~ semFrameTest$Candidate, data = semFrameTest) 
 anova(model0, model1)
 summary(model1)
 
@@ -204,8 +230,13 @@ If we input the actual data into the model, we see that the individuals are inde
 
 ```{r}
 #include your analysis code and output in the document
-model0 <- lm(semFrame$score ~ 1, data = semFrame) # model without predictor
-model1 <- lm(semFrame$score ~ semFrame$Candidate, data = semFrame) # model with predictor
+
+# model without predictor
+model0 <- lm(semFrame$score ~ 1, data = semFrame)
+
+# model with predictor
+model1 <- lm(semFrame$score ~ semFrame$Candidate, data = semFrame)
+
 anova(model0, model1)
 summary(model1)
 
@@ -234,13 +265,13 @@ leveneTest(semFrame$score, semFrame$Candidate)
 
 #### Report section for a scientific publication
 
-The analysis focuses on the effect of an individual on the sentiment of their tweets. In the experiment, two models are created. The first model only has an intercept and no additional information about the individual that tweeted the tweet. The second model does have this information. The experiment has shown that the addition of data about the individual significantly improves the model (F=13.478, Pr(>F)<0.001).
+The analysis focuses on the effect of an individual on the sentiment of their tweets. In the experiment, two models are created. The first model only has an intercept and no additional information about the individual that tweeted the tweet. The second model does have this information. The experiment has shown that the addition of data about the individual significantly improves the model (F=13.478, Pr(\>F)\<0.001).
 
-Moreover, a post-hoc analysis of the experiment was conducted. This showed that the sentiment differences between Donald Trump and Hillary Clinton (p<0.001) and Bernie Sanders (p<0.001) were significant. However, the sentiment difference between Hillary and Bernie (p=1) was not significant. The post-hoc analysis also showed that the model assumptions regarding normality and equal variances could be made. The Shapiro-Wilk normality tests showed that for both Trump (W = 0.85938, p-value < 0.001), Hillary (W = 0.91847, p-value < 0.001) and Bernie (W = 0.92669, p-value < 0.001) the distributions can be regarded as normal distributions. Finally, Levene's test for homogeneity of variances showed that all distributions indeed have equal variances (F=14.217, Pr(>F)<0.001).
+Moreover, a post-hoc analysis of the experiment was conducted. This showed that the sentiment differences between Donald Trump and Hillary Clinton (p\<0.001) and Bernie Sanders (p\<0.001) were significant. However, the sentiment difference between Hillary and Bernie (p=1) was not significant. The post-hoc analysis also showed that the model assumptions regarding normality and equal variances could be made. The Shapiro-Wilk normality tests showed that for both Trump (W = 0.85938, p-value \< 0.001), Hillary (W = 0.91847, p-value \< 0.001) and Bernie (W = 0.92669, p-value \< 0.001) the distributions can be regarded as normal distributions. Finally, Levene's test for homogeneity of variances showed that all distributions indeed have equal variances (F=14.217, Pr(\>F)\<0.001).
 
 ### Bayesian Approach
 
-#### Analysis verification 
+#### Analysis verification
 
 We fit two models, a model with only an intercept and a model with the relation between sentiment and individual added. The second model has a better fit, since its WAIC value is lower than the model without the additional relation.
 
@@ -325,26 +356,22 @@ PI(difftrump_bernie, prob = 0.95 )
 
 Make a conceptual model underlying this research question
 
-![](CM.jpg)
+![](images/CM.jpg)
 
 ### Specific Mathematical model
 
 Describe the mathematical model that you fit on the data. Take for this the complete model that you fit on the data. Also, explain your selection for the priors. Assume Gaussian distribution for the number of page visits.
 
-
-
 I adopt linear regression model o fit the data, which can be expressed as follows:
 
-y = β₀ + β₁ * version + β₂ * portal + β₃ * version * portal + ε
+y = $\beta_0$ + $\beta_1$ \* version + $\beta_2$ \* portal + $\beta_3$ \* version \* portal + $\epsilon$
 
-
-
-- y represents the number of page visits, which is assumed to follow a Gaussian distribution.
-- version is a binary variable (0 for the old version, 1 for the new version) indicating the website version.
-- portal is a binary variable (0 for consumers, 1 for companies) indicating the web portal entry.
-- version * portal represents the interaction term between the website version and portal.
-- β₀ is intercept and β₁, β₂, and β₃ are the coefficients for the three terms. I adopt Cauchy distribution for them assuming weakly informative prior, which has a large scale value has a gentle slope, letting data in the more extreme region still be of influence if the likelihood is strong here
-- ε represents the error term, assumed to follow a Gaussian distribution, ε∼ Normal(0, σ).
+-   y represents the number of page visits, which is assumed to follow a Gaussian distribution.
+-   version is a binary variable (0 for the old version, 1 for the new version) indicating the website version.
+-   portal is a binary variable (0 for consumers, 1 for companies) indicating the web portal entry.
+-   version \* portal represents the interaction term between the website version and portal.
+-   $\beta_0$ is intercept and $\beta_1$, $\beta_2$, and $\beta_3$ are the coefficients for the three terms. I adopt Cauchy distribution for them assuming weakly informative prior, which has a large scale value has a gentle slope, letting data in the more extreme region still be of influence if the likelihood is strong here
+-   $\epsilon$ represents the error term, assumed to follow a Gaussian distribution, $\epsilon ~ Normal(0, \sigma)$.
 
 ### Create Synthetic data
 
@@ -373,7 +400,7 @@ beta2 <- 0.8     # Coefficient for portal
 beta3 <- 0.7     # Coefficient for interaction
 
 # Generate the dependent variable (number of page visits)
-page_visits <- beta0 + beta1 * version + beta2 * portal + beta3 * interaction + rnorm(n)
+page_visits <- beta0+beta1*version+beta2*portal+beta3*interaction+rnorm(n)
 
 # Combine the variables into a data frame
 data <- data.frame(version, portal, interaction, page_visits)
@@ -383,11 +410,9 @@ head(data)
 
 ```
 
-
 ### Visual inspection
 
 Graphically examine the mean page visits for the four different conditions. Give a short explanation of the figure.
-
 
 ```{r}
 #include your code and output in the document
@@ -406,11 +431,9 @@ ggplot(mean_data, aes(x = version, y = page_visits, fill = factor(portal))) +
   theme_bw()
 ```
 
-![](visual_inspection_2.jpg)
+![](images/visual_inspection_2.jpg)
 
 I conducted a simple effect analysis to examine the influence of one independent variable on different levels of another independent variable. The analysis revealed that the combination of the new version and web portal for companies resulted in a highest number of page visits. Furthermore, regardless of the website version, the portal for companies showed a higher number of page visits compared to the portal for consumers. Additionally, irrespective of the portal, the old version exhibited fewer page visits compared to the new version.
-
-
 
 ### Frequentist Approach
 
@@ -462,15 +485,19 @@ cat("\nAICc:", AICc)
 #AICc: 270.7676
 
 #interpretation
-#1. All coefficients are comparable to original values and statistically significant.
-#2. The p-value is reported as "< 2.2e-16", which is essentially zero. This extremely low p-value indicates strong evidence against the null hypothesis, suggesting that the predictors collectively have a significant effect on the outcome variable (page visits).
-#3. The AICc value of 270.3466 suggests that the fitted linear regression model has a relatively good fit to the data compared to alternative models.
+#1. All coefficients are comparable to original values and statistically 
+#significant.
+#2. The p-value is reported as "< 2.2e-16", which is essentially zero. This 
+#extremely low p-value indicates strong evidence against the null hypothesis,
+#suggesting that the predictors collectively have a significant effect on the 
+#outcome variable (page visits).
+#3. The AICc value of 270.3466 suggests that the fitted linear regression model 
+#has a relatively good fit to the data compared to alternative models.
 ```
 
 #### Model analysis with Gaussian distribution assumed
 
 Redo the analysis now on the real data set. Assume Gaussian distribution for the number of page visits. Provide a short interpretation of the results, with an interpretation of AICc, F-value, p-value, etc.
-
 
 ```{r}
 #include your code and output in the document
@@ -502,19 +529,24 @@ summary(model0)
 #F-statistic:  3110 on 3 and 996 DF,  p-value: < 2.2e-16
 
 #interpretation
-#1. All coefficients are statistically significant， which show that version, portal and interaction have a strong influence on the page visit.
-#2. The p-value is reported as "< 2.2e-16", which is essentially zero. This extremely low p-value indicates strong evidence against the null hypothesis, suggesting that the predictors collectively have a significant effect on the outcome variable (page visits).
+#1. All coefficients are statistically significant, which show that version, 
+#portal and interaction have a strong influence on the page visit.
+#2. The p-value is reported as "< 2.2e-16", which is essentially zero. This 
+#extremely low p-value indicates strong evidence against the null hypothesis, 
+#suggesting that the predictors collectively have a significant effect on the 
+#outcome variable (page visits).
 ```
 
 #### Assumption analysis
 
-Redo the analysis on the real tweet data set.  This time assume a Poisson distribution for the number of page visits. For the best fitting models (Gaussian and Poisson), examine graphically the distribution of the residuals for the model that assumes Gaussian distribution and the model that assumes Poisson distribution. Give a brief interpretation of Poisson and Gaussian distribution assumptions.
+Redo the analysis on the real tweet data set. This time assume a Poisson distribution for the number of page visits. For the best fitting models (Gaussian and Poisson), examine graphically the distribution of the residuals for the model that assumes Gaussian distribution and the model that assumes Poisson distribution. Give a brief interpretation of Poisson and Gaussian distribution assumptions.
 
 ```{r}
 #include your code and output in the document
 
 # Poisson regression
-poisson_model <- glm(pages ~ version + portal + interaction, data = web_data, family = poisson)
+poisson_model <- glm(pages ~ version + portal + interaction, data = web_data, 
+                     family = poisson)
 
 # Gaussian regression
 gaussian_model <- model0
@@ -524,15 +556,17 @@ poisson_residuals <- resid(poisson_model)
 gaussian_residuals <- resid(gaussian_model)
 
 # Histogram of Poisson model residuals
-hist(poisson_residuals, breaks = 30, col = "lightblue", main = "Poisson Model Residuals")
+hist(poisson_residuals, breaks = 30, col = "lightblue", 
+     main = "Poisson Model Residuals")
 
 # Density plot of Gaussian model residuals
-hist(gaussian_residuals, breaks = 30, col = "lightblue", main = "Gaussian Model Residuals")
+hist(gaussian_residuals, breaks = 30, col = "lightblue", 
+     main = "Gaussian Model Residuals")
 ```
 
-![](gaussian.jpg)
+![](images/gaussian.jpg)
 
-![poisson](poisson.jpg)
+![poisson](images/poisson.jpg)
 
 Both the Gaussian and Poisson residuals appear to follow a normal distribution, which suggests that the Gaussian model is a better fit for the data.
 
@@ -540,28 +574,33 @@ Both the Gaussian and Poisson residuals appear to follow a normal distribution, 
 
 Continue with the model that assumes a Poisson distribution. If the analysis shows a significant two-way interaction effect, conduct a Simple Effect analysis to explore this interaction effect in more detail. Provide a brief interpretation of the results.
 
-
 ```{r}
 #include your code and output in the document
 
 library(rethinking)
 summary(poisson_model)
-# interaction  1.00605    0.02717   37.03   <2e-16 ***
-# The p-value is reported as "< 2.2e-16", which is essentially zero. This extremely low p-value indicates strong evidence against the null hypothesis, suggesting that the interaction have a significant effect on the page visits.
+#interaction  1.00605    0.02717   37.03   <2e-16 ***
+#The p-value is reported as "< 2.2e-16", which is essentially zero. 
+#This extremely low p-value indicates strong evidence against the null 
+#hypothesis, suggesting that the interaction have a significant effect 
+#on the page visits.
 
 library(pander)
 
 # create two contrasts and combine them and associate the contrast to a variable
-web_data$simple <- interaction(web_data$version, web_data$portal) #merge two factors
+#merge two factors
+web_data$simple <- interaction(web_data$version, web_data$portal)
 levels(web_data$simple) #to see the level in the new factor
 
 contrastOld <-c(1,-1,0,0) 
 contrastNew <-c(0,0,1,-1) 
 
 SimpleEff <- cbind(contrastOld,contrastNew)
-contrasts(web_data$simple) <- SimpleEff #now we link the two contrasts with the version
+contrasts(web_data$simple) <- SimpleEff #now we link the two contrasts with 
+#the version
 
-# we fit a linear model on the data, using this two-level variable as an independent factor.
+# we fit a linear model on the data, using this two-level variable 
+#as an independent factor.
 simpleEffectModel <-lm(pages ~ simple , data = web_data, na.action = na.exclude)
 pander(summary.lm(simpleEffectModel))
 
@@ -578,34 +617,30 @@ pander(summary.lm(simpleEffectModel))
 #      **simple**          28.41       0.3444      82.48        0      
 #----------------------------------------------------------------------
 
-# It revealed a significant (t = 15.56, p. < 0.01) difference for old version in page visits, and also a significant effect (t = -45.96,p. < 0.01 ) was found for the onew version in page visits.
+# It revealed a significant (t = 15.56, p. < 0.01) difference for old version 
+#in page visits, and also a significant effect (t = -45.96,p. < 0.01 ) 
+#was found for the onew version in page visits.
 ```
-
 
 #### Report section for a scientific publication
 
 Write a small section for a scientific publication, in which you report the results of the analyses, and explain the conclusions that can be drawn.
 
-
-
 Paper: [Effects of different real-time feedback types on human performance in high-demanding work conditions](https://www.sciencedirect.com/science/article/pii/S1071581916000392)
 
 Result:
 
-![](table.jpg)
+![](images/table.jpg)
 
-
-
-The table shows the simple effect of HR, performance and error as well as the 2-way/3-way interaction between/among them. We can see from the table that there is a significant two-way interaction effect between HR and Error.(p<0.002)  Also, the HR itself is a significant effect(p<0,006).
+The table shows the simple effect of HR, performance and error as well as the 2-way/3-way interaction between/among them. We can see from the table that there is a significant two-way interaction effect between HR and Error.(p\<0.002) Also, the HR itself is a significant effect(p\<0,006).
 
 ### Bayesian Approach
 
 For the Bayesian analyses, use the rethinking and/or BayesianFirstAid library
 
-####  Verification Analysis
+#### Verification Analysis
 
 Verify your model analysis with synthetic data and show that it can reproduce the coefficients of the linear model that you used to generate the synthetic data set. Provide a short interpretation of the results, with a reflection of WAIC, and 95% credibility interval of coefficients for individual celebrities.
-
 
 ```{r}
 #include your analysis code of synthetic data and output in the document
@@ -642,32 +677,29 @@ waic
 #      WAIC      lppd  penalty  std_err
 #1 271.2522 -130.2396 5.386505 15.16342
 
-# The estimated coefficients of the synthetic data closely match the original coefficients used to generate the data, with portal, version and interaction all positively affect the page visit.
+# The estimated coefficients of the synthetic data closely match the original 
+#coefficients used to generate the data, with portal, version and interaction 
+#all positively affect the page visit.
 ```
-
 
 #### Model description
 
 Describe the mathematical model fitted on the most extensive model. (hint, look at the mark down file of the lectures to see example on formulate mathematical models in markdown). Assume Poisson distribution for the number of page visits. Justify the priors.
 
-
-
 Model:
 
-Pages ~ Poisson(lambda) 
+Pages \~ Poisson(lambda)
 
-lambda = exp(beta0 + beta1 * Version + beta2 * Portal + beta3 * Interaction)
-
-
+lambda = exp(beta0 + beta1 \* Version + beta2 \* Portal + beta3 \* Interaction)
 
 Priors:
 
-Because there is limited prior information or no strong prior beliefs, I use weakly informative priors  that allow the data to have a larger influence on the posterior results.
+Because there is limited prior information or no strong prior beliefs, I use weakly informative priors that allow the data to have a larger influence on the posterior results.
 
-- beta0 ~ Normal(0, 10) 
-- beta1 ~ Normal(0, 10)
-- beta2 ~ Normal(0, 10)
-- beta3 ~ Normal(0, 10)
+-   beta0 \~ Normal(0, 10)
+-   beta1 \~ Normal(0, 10)
+-   beta2 \~ Normal(0, 10)
+-   beta3 \~ Normal(0, 10)
 
 #### Model comparison
 
@@ -689,7 +721,7 @@ library(rethinking)
 model_bay_web <- map(
   alist(
     pages ~ dpois(lambda),
-    log(lambda) <- beta0 + beta1 * version + beta2 * portal + beta3 * interaction,
+    log(lambda)<- beta0 +beta1 * version + beta2 * portal + beta3 * interaction,
     beta0 ~ dnorm(0, 10),
     beta1 ~ dnorm(0, 10),
     beta2 ~ dnorm(0, 10),
@@ -713,10 +745,12 @@ waic
 #     WAIC      lppd  penalty  std_err
 #1 6057.62 -3024.845 3.965474 45.57388
 
-#the analysis suggests that the version, portal, and interaction variables have significant effects on the number of page visits. The version and portal variables have opposite effects. The interaction variable shows a stronger positive effect on page visits. The model's WAIC and lppd indicate reasonable fit to the data, 
+#the analysis suggests that the version, portal, and interaction variables have
+#significant effects on the number of page visits.
+#The version and portal variables have opposite effects.
+#The interaction variable shows a stronger positive effect on page visits.
+#The model's WAIC and lppd indicate reasonable fit to the data, 
 ```
-
-
 
 # Part 3 - Multilevel model
 
@@ -740,18 +774,21 @@ hist(set0$session, xlab="sessions", main="session frequencies histogram")
 color_range <- colorRampPalette(c("blue", "red"))
 
 # Assign colors based on session number
-color_vector <- color_range(length(unique(set0$session)))[as.numeric(unique(set0$session))]
+color_vector_temp <- color_range(length(unique(set0$session)))
+color_vector <- color_vector_temp[as.numeric(unique(set0$session))]
 lty_vector <- rep(1, each=length(unique(set0$session)))
 
 note_text <- "17"
 
 
 
-den <- sm.density.compare(set0$score, group = set0$session, h=2.5, col= color_vector, lty=lty_vector)
+den <- sm.density.compare(set0$score, group = set0$session, h=2.5,
+                          col= color_vector, lty=lty_vector)
 title(main="score density by session")
 #text(x=0, labels ="17", adj=c(-16,-18))
 
-legend("topleft", den$levels, lty=den$lty, lwd=den$lwd, y.intersp=1, ncol=3, col=den$col, title="session number")
+legend("topleft", den$levels, lty=den$lty, lwd=den$lwd, y.intersp=1, ncol=3,
+       col=den$col, title="session number")
 boxplot(score ~ session, data=set0)
 #boxplot(session ~ score, data=set0)
 scatterplot(score ~ session, data=set0)
@@ -775,23 +812,39 @@ Conduct multilevel analysis and calculate 95% confidence intervals thereby assum
 
 ```{r}
 library(nlme)
+library(pander)
 ctrl <- lmeControl(opt='optim');
-freq_m <- lme(score ~ session,
+
+freq_m1 <- lme(score ~ 1,
           data = set0,
-          random = ~ session | subject,
+          random = ~ 1 | subject,
           method="ML",
           control=ctrl
           )
 
-summary(freq_m)
-intervals(freq_m)
+freq_m2 <- lme(score ~ session,
+          data = set0,
+          random = ~ 1 | subject,
+          method="ML",
+          control=ctrl
+          )
+
+sm1 <- summary(freq_m1)
+sm2 <- summary(freq_m2)
+pander(sm1$tTable)
+pander(sm2$tTable)
+
+#print(sm2)
+pander(anova(freq_m1, freq_m2))
 
 #include your code and output in the document
 ```
 
+The first model only finds a fixed intercept with value 19.8 but no slope.The second model, which is a bit more complicated, takes into account the effect that session has on the score and found a slope of 0.991 and the intercept now became 13.17. the second model is able to perform much better than the first one as indicated by the AIC scores: 939.2, 1660 respectively.
+
 ### Report section for a scientific publication
 
-The experiment showed a significant association between the session number and the score obtained with t(260, N=284)=15.48, p\<0.0001 for the intercept of value 13.19 and t(260, N=284)=15.48, p\<0.0001 for the slope of value 0.99.
+we constructed a multi-level regression model and the experiment showed a significant association between the session number and the score obtained with t(260, N=284)=15.48, p\<0.0001 for the intercept of value 13.19 and t(260, N=284)=15.48, p\<0.0001 for the slope of value 0.99.
 
 the relationship between sessions and scores show significant variance across subjects in the intercept SD=4.03 (95% CI: 2.99, 5.41) and in the slope SD=0.04 (95% CI: 0.01, 0.12) and the slopes and intercepts were negatively significantly correlated, cor=-.81.
 
@@ -803,9 +856,7 @@ The most complete model to predict subjects' scores assumes that the scores are 
 
 The prior values, Are chosen based on the previous visual inspection of the mean and previous intercepts and coefficient values from the frequentist models.
 
-\$ score \sim Norm(\mu, \sigma)   [likelihood]\\ \mu = a + a\_{subject} + (b + b\_{subject}) \* session    [linear  model](#linear-model)\\ a\_{subject} = Norm(0, a\_\sigma)    [adaptive  prior]\\ a\_\sigma = HalfCouch(0, 1)    [hyper  prior]\\ b\_{subject} = Norm(0,1)    [fixed  prior]\\ a = Norm(0, 1)    [fixed  prior] \\ b = Norm(0, 1)    [fixed  prior] \\ \sigma = Norm(0, 1)    [fixed  prior]
-
-\$
+$score \sim Norm(\mu, \sigma) \ \ \ [likelihood]\\ \mu = a + a_{subject} + (b + b_{subject}) * session \ \ \ \ [linear \ model]\\ a_{subject} = Norm(0, a_\sigma) \ \ \ \ \ [adaptive \ prior]\\ a_\sigma = HalfCouch(0, 10) \ \ \ [hyper \ prior]\\ b_{subject} = Norm(0,10) \ \ \ \ \ \ [fixed \ prior]\\ a = Norm(15, 25) \ \ \ [fixed \ prior] \\ b = Norm(0, 50) \ \ \ \ [fixed \ prior] \\ \sigma = Norm(0, 10) \ \ \ \ [fixed \ prior]$
 
 ### Model comparison
 
@@ -826,7 +877,7 @@ bays_m1 <- map2stan(
     #fixed priors
     a_subject[subject] ~ dnorm(0, 10),
     a ~ dnorm(15, 25),
-    sigma ~ dcauchy(2,7)
+    sigma ~ dcauchy(0,10)
 
   ),
   data=set0,iter = 10000,
@@ -851,7 +902,7 @@ bays_m2<- map2stan(
     
     #fixed prior
     a ~ dnorm(15, 25),
-    sigma ~ dcauchy(2,7)
+    sigma ~ dcauchy(0,10)
   ),
   data=set0,iter = 10000,
   chains=4,log_lik = TRUE,
@@ -893,10 +944,14 @@ precis(bays_m1, depth=2, prob=.95)
 precis(bays_m2, depth=2, prob=.95)
 precis(bays_m3, depth=2, prob=.95)
 compare(bays_m1, bays_m2, bays_m3)
-#
+
 ```
 
 The first two models performed very similarly (WAIC: 1623.7, 1622.6) but the third model showed a significant improvement (WAICC: 861.2) this is due to the addition of the session intercept and slope which contains most of the score variance.
+
+#### scientific report
+
+we fitted a muli-level Bayesian regression model on our data and found
 
 ### Estimates examination
 
