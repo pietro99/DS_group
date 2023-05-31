@@ -47,8 +47,11 @@ df <- import("data.csv")
 
 #Models
 
-m <- lm(score ~ model*TeD*TrD1*TrD2*TrD3*TrD4*TrD5*TrD6*TrD7, df)
+m <- lm(score ~ model*TeD*(TrD1+TrD2+TrD3+TrD4+TrD5+TrD6+TrD7), df)
 
 summary(m)
 as.data.frame(ref_grid(m))
+
+pairs(emmeans(m, ~model))
+
 
