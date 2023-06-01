@@ -55,12 +55,14 @@ m2 <- lm(score ~ TransferLearning * TeD, df)
 summary(m1)
 as.data.frame(ref_grid(m1))
 emmeans(m1, ~model)
+emmeans(m2, ~TransferLearning)
+pairs(emmeans(m2, ~model))
 pairs(emmeans(m2, ~TransferLearning))
 
 #Models - analyze training data effect
 
 #remove B1, B2, B3 models because they do not have training data.
-df_filtered <- subset(df, !(model %in% c("B1", "B2", "B3", "MS")))
+df_filtered <- subset(df, !(model %in% c("B1", "B2", "B3")))
 
 m3 <- lm(score ~ model * TeD * (TrD1+TrD2+TrD3+TrD4+TrD5+TrD6+TrD7), df_filtered)
 
@@ -76,8 +78,8 @@ pairs(emmeans(m3, ~TrD5))
 pairs(emmeans(m3, ~TrD6))
 pairs(emmeans(m3, ~TrD7))
 
-
-m1 <-lm(score ~ model*TeD*TrD1*TrD2*TrD3, df_filtered)
+#full model (5376 individual effects)
+m1 <-lm(score ~ model*TeD*TrD1*TrD2*TrD3*TrD4*TrD5*TrD6*TrD7, df_filtered)
 
 summary(m1)
 as.data.frame(ref_grid(m1))
