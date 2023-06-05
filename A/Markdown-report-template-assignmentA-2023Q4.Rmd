@@ -38,11 +38,7 @@ Does the integration of chatGPT into the Bing search engine lead to an increase 
 
 ## The related conceptual model
 
-<<<<<<< HEAD
 ![image1](CM_chatgpt.png)
-=======
-Independent variable: Search Mode - categorial variable - ChatGPT, standard Dependent variable: user experiences Mediating variable: (at least 1): session length, relevance of results Moderating variable: (at least 1): Experience with chatbots
->>>>>>> e6f81701572c31604df18fc49f53fcdde20b5718
 
 ## Experimental Design
 
@@ -192,12 +188,7 @@ semFrame$Candidate <-factor(semFrame$Candidate,
 ```
 
 ### Visual inspection Mean and distribution sentiments
-<<<<<<< HEAD
 To get an idea of the distributions of the data, we make some graphs. First, we plot the data distributions of the tweet sentiment per individual. This graph shows that the distributions seem similar, all with a mean around 0. However, for the Trump data, there seem to be more more values with a higher sentiment. If we look at the boxplots, we see that Trump seems to have the most positive sentiment, but he also has more extreme maximum. Hillary seems to be a bit less positive than Bernie.
-=======
-
-To get an idea of the distributions of the data, we make some graphs. First, we plot the data distributions of the tweet sentiment per individual. This graph shows that the distributions seem similar, all with a mean around 0. However, for the Trump data, there seem to be more more values with a higher sentiment. If we look at the boxplots, we see that Trump seems to have the most positive sentiment, but he also has more extreme maxima. Hillary seems to be a bit less positive than Bernie.
->>>>>>> e6f81701572c31604df18fc49f53fcdde20b5718
 
 ```{r}
 #include your analysis code and output in the document
@@ -379,21 +370,6 @@ Make a conceptual model underlying this research question
 
 Describe the mathematical model that you fit on the data. Take for this the complete model that you fit on the data. Also, explain your selection for the priors. Assume Gaussian distribution for the number of page visits.
 
-<<<<<<< HEAD
-
-
-The model can expressed as follows:
-
-pages ~ Norm(mu, sigma)
-
-mu = Beta0 + Beta1 * version + Beta2 * portal + Beta3 * version * portal
-
-Beta0  ~ dnorm(20, 10)
-
-c(Beta1, Beta2, Beta3) ~ dnorm(10,10)
-
-sigma ~ dunif(0.001, 40)
-=======
 I adopt linear regression model o fit the data, which can be expressed as follows:
 
 y = $\beta_0$ + $\beta_1$ \* version + $\beta_2$ \* portal + $\beta_3$ \* version \* portal + $\epsilon$
@@ -404,7 +380,6 @@ y = $\beta_0$ + $\beta_1$ \* version + $\beta_2$ \* portal + $\beta_3$ \* versio
 -   version \* portal represents the interaction term between the website version and portal.
 -   $\beta_0$ is intercept and $\beta_1$, $\beta_2$, and $\beta_3$ are the coefficients for the three terms. I adopt Cauchy distribution for them assuming weakly informative prior, which has a large scale value has a gentle slope, letting data in the more extreme region still be of influence if the likelihood is strong here
 -   $\epsilon$ represents the error term, assumed to follow a Gaussian distribution, $\epsilon ~ Normal(0, \sigma)$.
->>>>>>> e6f81701572c31604df18fc49f53fcdde20b5718
 
 
 
