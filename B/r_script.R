@@ -84,9 +84,10 @@ ggplot(df, aes(score))  + geom_histogram()  + facet_grid(~TransferLearning)
 
 #simpler model (16128 individual effects)
 m2 <-lm(score ~ model*TeD*(TrD1+TrD2+TrD3+TrD4+TrD5+TrD6+TrD7+TrD8), df)
+summary(m2)
 
 # simplest model for RQ1
-m3 < - lm(score ~ model*TeD, df)
+m4 <- lm(score ~ model*TeD, df)
 
 # take the number of datasets into account
 # TrDCount: numerical
@@ -128,15 +129,14 @@ combined_plot <- grid.arrange(p1, p2, p3, p4, p5, p6, p7, p8, nrow = 3, ncol = 3
 print(combined_plot)
 
 # TrDCount: catergorical
-df$TrDCount<- factor(df$TrDCount, levels = c(0:8))
-m3 <-lm(score ~ model * TrDCount *(TrD1+TrD2+TrD3+TrD4+TrD5+TrD6+TrD7+TrD8), df)
+df_subset <- subset(df, TrDCount %in% (2:7))
+df_subset$TrDCount<- factor(df_subset$TrDCount, levels = c(2:7))
+m3 <-lm(score ~ model * TrDCount * TeD, df_subset)
 m3$coefficients <- na.omit(m3$coefficients)
 summary(m3)
 
 # find out the influence of the number of training datasets
-emmeans(m3, ~TrDCount, rg.limit = 150000)
-
-
+pairs(emmeans(m3, ~TrDCount, rg.limit = 150000))
 
 #load model
 load("my_model2.rda")
