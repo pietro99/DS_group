@@ -87,7 +87,7 @@ m2 <-lm(score ~ model*TeD*(TrD1+TrD2+TrD3+TrD4+TrD5+TrD6+TrD7+TrD8), df)
 summary(m2)
 
 # simplest model for RQ1
-m4 <- lm(score ~ model*TeD, df)
+# m4 <- lm(score ~ model*TeD, df)
 
 # take the number of datasets into account
 # TrDCount: numerical
@@ -146,17 +146,17 @@ load("my_model2.rda")
 m2$coefficients <- na.omit(m2$coefficients)
 
 #save models
-save(m2, file="my_model2.rda")
+# save(m2, file="my_model2.rda")
 #save(m1, file="my_model1.rda")
 
 #EEM
-eem_orig <- emmeans(m1, ~model, rg.limit = 20000)
+eem_orig <- emmeans(m2, ~model, rg.limit = 20000)
 save(eem_orig, file="eem_orig_m1.rda")
 load("eem_orig_m1.rda")
 print(eem_orig)
 #grouping results
 eem_grouped <- add_grouping(eem_orig, "TransferLearning", "model", c("SL", "SL", "SL", "TL", "TL", "TL", "TL", "TL", "TL"))
-eem_grouped <- emmeans(eem,  ~ TransferLearning)
+eem_grouped <- emmeans(eem_grouped,  ~ TransferLearning)
 eem_grouped_contrast <- pairs(eem_grouped)
 
 #p values for score
