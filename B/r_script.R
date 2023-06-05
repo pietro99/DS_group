@@ -85,6 +85,9 @@ ggplot(df, aes(score))  + geom_histogram()  + facet_grid(~TransferLearning)
 #simpler model (16128 individual effects)
 m2 <-lm(score ~ model*TeD*(TrD1+TrD2+TrD3+TrD4+TrD5+TrD6+TrD7+TrD8), df)
 
+# simplest model for RQ1
+m3 < - lm(score ~ model*TeD, df)
+
 # take the number of datasets into account
 # TrDCount: numerical
 ggplot(df, aes(TrDCount, score)) + geom_smooth(se = FALSE, formula = y ~ s(x, bs = "cs", k = 4))
