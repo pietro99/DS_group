@@ -87,7 +87,114 @@ summary(m3)
 #m1 <-lm(score ~ model*TeD*TrD1*TrD2*TrD3*TrD4*TrD5*TrD6*TrD7*TrD8), df)
 
 #simpler model (16128 individual effects)
-#m2 <-lm(score ~ model*TeD*(TrD1+TrD2+TrD3+TrD4+TrD5+TrD6+TrD7+TrD8), df)
+m2 <-lm(score ~ model*TeD*(TrD1+TrD2+TrD3+TrD4+TrD5+TrD6+TrD7+TrD8), df)
+summary(m2)
+
+# simplest model for RQ1
+# m4 <- lm(score ~ model*TeD, df)
+
+# take the number of datasets into account
+# TrDCount: numerical
+ggplot(df, aes(TrDCount, score)) + geom_smooth(se = FALSE, formula = y ~ s(x, bs = "cs", k = 4))
+
+
+ggplot(df, aes(TrDCount)) + geom_histogram(binwidth = 5) + facet_grid(~TeD)
+
+library(gridExtra)
+
+# Plot 1
+p1 <- ggplot(df, aes(TrDCount)) + geom_histogram(binwidth = 5) + facet_grid(~TrD1, scales = "free")
+
+# Plot 2
+p2 <- ggplot(df, aes(TrDCount)) + geom_histogram(binwidth = 5) + facet_grid(~TrD2, scales = "free")
+
+# Plot 3
+p3 <- ggplot(df, aes(TrDCount)) + geom_histogram(binwidth = 5) + facet_grid(~TrD3, scales = "free")
+
+# Plot 4
+p4 <- ggplot(df, aes(TrDCount)) + geom_histogram(binwidth = 5) + facet_grid(~TrD4, scales = "free")
+
+# Plot 5
+p5 <- ggplot(df, aes(TrDCount)) + geom_histogram(binwidth = 5) + facet_grid(~TrD5, scales = "free")
+
+# Plot 6
+p6 <- ggplot(df, aes(TrDCount)) + geom_histogram(binwidth = 5) + facet_grid(~TrD6, scales = "free")
+
+# Plot 7
+p7 <- ggplot(df, aes(TrDCount)) + geom_histogram(binwidth = 5) + facet_grid(~TrD7, scales = "free")
+
+# Plot 8
+p8 <- ggplot(df, aes(TrDCount)) + geom_histogram(binwidth = 5) + facet_grid(~TrD8, scales = "free")
+
+# Combine plots into one figure
+combined_plot <- grid.arrange(p1, p2, p3, p4, p5, p6, p7, p8, nrow = 3, ncol = 3)
+
+# Display the combined plot
+print(combined_plot)
+
+# TrDCount: catergorical
+df_subset <- subset(df, TrDCount %in% (2:7))
+df_subset$TrDCount<- factor(df_subset$TrDCount, levels = c(2:7))
+m3 <-lm(score ~ model * TrDCount * TeD, df_subset)
+m3$coefficients <- na.omit(m3$coefficients)
+summary(m3)
+
+# find out the influence of the number of training datasets
+pairs(emmeans(m3, ~TrDCount, rg.limit = 150000))
+m2 <-lm(score ~ model*TeD*(TrD1+TrD2+TrD3+TrD4+TrD5+TrD6+TrD7+TrD8), df)
+summary(m2)
+
+# simplest model for RQ1
+# m4 <- lm(score ~ model*TeD, df)
+
+# take the number of datasets into account
+# TrDCount: numerical
+ggplot(df, aes(TrDCount, score)) + geom_smooth(se = FALSE, formula = y ~ s(x, bs = "cs", k = 4))
+
+
+ggplot(df, aes(TrDCount)) + geom_histogram(binwidth = 5) + facet_grid(~TeD)
+
+library(gridExtra)
+
+# Plot 1
+p1 <- ggplot(df, aes(TrDCount)) + geom_histogram(binwidth = 5) + facet_grid(~TrD1, scales = "free")
+
+# Plot 2
+p2 <- ggplot(df, aes(TrDCount)) + geom_histogram(binwidth = 5) + facet_grid(~TrD2, scales = "free")
+
+# Plot 3
+p3 <- ggplot(df, aes(TrDCount)) + geom_histogram(binwidth = 5) + facet_grid(~TrD3, scales = "free")
+
+# Plot 4
+p4 <- ggplot(df, aes(TrDCount)) + geom_histogram(binwidth = 5) + facet_grid(~TrD4, scales = "free")
+
+# Plot 5
+p5 <- ggplot(df, aes(TrDCount)) + geom_histogram(binwidth = 5) + facet_grid(~TrD5, scales = "free")
+
+# Plot 6
+p6 <- ggplot(df, aes(TrDCount)) + geom_histogram(binwidth = 5) + facet_grid(~TrD6, scales = "free")
+
+# Plot 7
+p7 <- ggplot(df, aes(TrDCount)) + geom_histogram(binwidth = 5) + facet_grid(~TrD7, scales = "free")
+
+# Plot 8
+p8 <- ggplot(df, aes(TrDCount)) + geom_histogram(binwidth = 5) + facet_grid(~TrD8, scales = "free")
+
+# Combine plots into one figure
+combined_plot <- grid.arrange(p1, p2, p3, p4, p5, p6, p7, p8, nrow = 3, ncol = 3)
+
+# Display the combined plot
+print(combined_plot)
+
+# TrDCount: catergorical
+df_subset <- subset(df, TrDCount %in% (2:7))
+df_subset$TrDCount<- factor(df_subset$TrDCount, levels = c(2:7))
+m3 <-lm(score ~ model * TrDCount * TeD, df_subset)
+m3$coefficients <- na.omit(m3$coefficients)
+summary(m3)
+
+# find out the influence of the number of training datasets
+pairs(emmeans(m3, ~TrDCount, rg.limit = 150000))
 
 #load model
 load("my_model2.rda")
