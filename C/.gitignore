@@ -5,3 +5,7 @@ INDEX
 *.log
 *.tex
 A.Rproj
+/data
+/resources
+*.prj
+*.asv

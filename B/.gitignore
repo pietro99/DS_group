@@ -5,3 +5,6 @@ INDEX
 *.log
 *.tex
 A.Rproj
+
+*.RData
+*.rda
