@@ -41,12 +41,22 @@ image_reference_diff =  uint8(reshape(M(:,1), h, w, d)*255);
 %%
 
 %compute covariance matrix
-C =  (1/m) * (M*M');
+%C =  (1/m) * (M*M');
+
+G = (1/m) * (M'*M);
+
 
 %%
 %compute eigenvalues and eigenvectors
 num_of_eigenvec = 10;
-[Vec, D_val] = eigs(C, num_of_eigenvec);
+[Vec, D_val] = eigs(G, num_of_eigenvec);
+eig_vals = diag(D_val);
+
+%%
+%compute basis vectors
+%U = Vec;
+
+U = (1 ./ sqrt(eig_vals))' .* (M * Vec);
 
 %%
 
@@ -68,15 +78,15 @@ num2 = 2;
 clf
 for i=1:num_of_eigenvec
     subplot(num1, num2, i);
-    em = Vec(:, i);
+    em = U(:, i);
     image = uint8(reshape(rescale(em, 0, 255), h, w, d));
     imshow(image);
 end
 %%
 %get eigenvectors weights for image
-image_index = 3900;
+image_index = 3800;
 
-weights_image = Vec' * (M(:, image_index)- D_means);
+weights_image = U' * (M(:, image_index)- D_means);
 
 %show original image
 imshow(reshape(D(:, image_index), h, w, d));
@@ -86,7 +96,7 @@ imshow(reshape(D(:, image_index), h, w, d));
 %plot projected eigenvectors of image
 for i=1:5
     subplot(num1, num2, i);
-    em = Vec(:, i);
+    em = U(:, i);
     p1x= M(:, image_index)'*em*em;
     image = uint8(reshape(rescale(p1x, 0, 1), h, w, d)*255);
     imshow(image);
@@ -98,8 +108,8 @@ end
 %reconstruct image from eigenvectors combination
 new_image = D_means;
 %weights_image = [0,0,0,0,0]; if want to do it manually
-for i = 1:length(Vec(1,:))
-    new_image = new_image + weights_image(i)*Vec(:,i);
+for i = 1:length(U(1,:))
+    new_image = new_image + weights_image(i)*U(:,i);
     new_image = rescale(new_image,0,1);
 end
 imshow(uint8(reshape(new_image, h, w, d)*255));
