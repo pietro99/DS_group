@@ -1,6 +1,6 @@
 %specigy input folder
 base_folder = 'data';
-inputFolder = 'chest-rays';
+inputFolder = 'MINIST';
 outputFolder = inputFolder+"_processed";
 
 [fl, labels] = get_file_list(base_folder, outputFolder);
@@ -72,7 +72,7 @@ C =  (1/m) * (M*M');
 
 %%
 %compute eigenvalues and eigenvectors
-num_of_eigenvec = 2;
+num_of_eigenvec = 3;
 [Vec, D_val] = eigs(C, num_of_eigenvec);
 eig_vals = diag(D_val);
 
@@ -82,6 +82,18 @@ U = Vec;
 
 %U = (1 ./ sqrt(eig_vals))' .* (M * Vec);
 
+%%
+%get eigenvectors weights for image
+image_index = 3800;
+
+new_dim = U' * Data_matrix;
+
+weights = new_dim(:,image_index);
+
+%show original image
+imshow(reshape(D(:, image_index), h, w, d));
+scatter(new_dim(1,:), new_dim(2,:), 25, L, 'filled')
+scatter3(new_dim(1,:), new_dim(2,:),new_dim(3,:), 25, L, 'filled')
 %%
 
 %plot explained variance
@@ -106,18 +118,7 @@ for i=1:num_of_eigenvec
     image = uint8(reshape(rescale(em, 0, 255), h, w, d));
     imshow(image);
 end
-%%
-%get eigenvectors weights for image
-image_index = 3800;
 
-new_dim = U' * Data_matrix;
-
-weights = new_dim(:,image_index);
-
-%show original image
-imshow(reshape(D(:, image_index), h, w, d));
-cs = linspace(1,10,length(L))
-scatter(new_dim(1,:), new_dim(2,:), 25, L, 'filled')
 %%
 
 %plot projected eigenvectors of image
