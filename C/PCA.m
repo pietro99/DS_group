@@ -15,15 +15,16 @@ for i = 1:numel(fl)
 end
 %construct data matrix 
 D = zeros(w*h*d, len);
-L = strings(len, 1);
+L = categorical(1,len);
+counter = 0;
 for i = 1:numel(fl)
-    label = labels{i};
     for j = 1:numel(fl{i})
+        counter = counter +1;
         image =imread(fullfile(fl{i}(j).folder , fl{i}(j).name));
         [h, w, d] = size(image);
         x = double(reshape(image, w*h*d, 1))/255;
-        D(:, i) = x;
-        L(j, 1) = label;
+        D(:, counter) = x;
+        L(1, counter) = labels{i};
     end
 end
 
@@ -71,8 +72,8 @@ C =  (1/m) * (M*M');
 
 %%
 %compute eigenvalues and eigenvectors
-num_of_eigenvec = 10;
-[Vec, D_val] = eigs(C, d);
+num_of_eigenvec = 2;
+[Vec, D_val] = eigs(C, num_of_eigenvec);
 eig_vals = diag(D_val);
 
 %%
@@ -115,7 +116,8 @@ weights = new_dim(:,image_index);
 
 %show original image
 imshow(reshape(D(:, image_index), h, w, d));
-
+cs = linspace(1,10,length(L))
+scatter(new_dim(1,:), new_dim(2,:), 25, L, 'filled')
 %%
 
 %plot projected eigenvectors of image
