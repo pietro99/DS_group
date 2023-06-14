@@ -66,6 +66,7 @@ image_reference_diff =  uint8(reshape(M(:,1), h, w, d)*255);
 
 %compute covariance matrix
 C =  (1/m) * (M*M');
+size(C)
 
 %G = (1/m) * (M'*M);
 
@@ -140,7 +141,6 @@ for i = 1:length(U(1,:))
     new_image = rescale(new_image,0,1);
 end
 imshow(uint8(reshape(new_image, h, w, d)*255));
-
 
 %%
 function [PCA, Newdata] = calc_mapping(L, data)
