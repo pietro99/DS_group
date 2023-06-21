@@ -6,6 +6,7 @@
 #install.packages("ggplot2") 
 #install.packages("caret")
 
+
 #import required packages
 
 library("rio")
@@ -14,9 +15,8 @@ library("emmeans")
 library("ggplot2")
 library("caret")
 
-# setwd('C:\\Users\\Rens\\DS_group\\B')
 
-#function to enhence the data with the grouping (if it is even needed)
+#function to extend the data with the grouping (if it is needed)
 create_groups <- function(df){
   df <- df %>%
     mutate(
@@ -42,31 +42,31 @@ create_groups <- function(df){
   return(df)
 }
 
-#data processing
+
+#data loading and processing
 df <- import("data.csv")
 df <- create_groups(df)
 
-#plots
+
+#plots to explore the effects of model types and test data types
 ggplot(df, aes( y=score)) + geom_boxplot(notch = FALSE) + facet_wrap(~TransferLearning)
-ggplot(df, aes( y=score)) + geom_boxplot(notch = FALSE) + facet_wrap(~TeD)
+ggplot(df, aes( y=score)) + geom_boxplot(notch = FALSE) + facet_wrap(~TestDataType)
 ggplot(df, aes(score))  + geom_histogram()  + facet_grid(~TransferLearning)
 
 
-#analyzing model types
-#m1 <- lm(score ~ model * TeD, df)
+# analyzing model types
+# m1 <- lm(score ~ model * TeD, df)
 # m2 <- lm(score ~ TransferLearning * TeD, df)
-
-#emmeans(m1, ~model)
+# 
+# emmeans(m1, ~model)
 # emmeans(m2, ~TransferLearning)
-#pairs(emmeans(m1, ~model))
+# pairs(emmeans(m1, ~model))
 # pairs(emmeans(m2, ~TransferLearning))
 
-#contrast_model <- contrast(emmeans_m1, list(StandardLearning = c("B1", "B2", "B3"), TransferLearning = c("M1", "M2", "M2", "MF", "MN", "MS")))
-#contrast_m1 <- contrast(emmeans_m1, list(StandardLearning = c("B1", "B2", "B3"), TransferLearning = c("M1", "M2", "M2", "MF", "MN", "MS")))
 
-#Models - analyze training data effect
-
-#remove B1, B2, B3 models because they do not have training data.
+# Models - analyze training data effect
+# 
+# remove B1, B2, B3 models because they do not have training data.
 # df_filtered <- subset(df, !(model %in% c("B1", "B2", "B3")))
 # 
 # m3 <- lm(score ~ model * TeD * (TrD1+TrD2+TrD3+TrD4+TrD5+TrD6+TrD7), df_filtered)
@@ -81,80 +81,14 @@ ggplot(df, aes(score))  + geom_histogram()  + facet_grid(~TransferLearning)
 # pairs(emmeans(m3, ~TrD6))
 # pairs(emmeans(m3, ~TrD7))
 
+# Q1
 
-
-#full model (16128 individual effects)
+#complexer model (16128 individual effects) that considers the interactions among different TrDs
 #m1 <-lm(score ~ model*TeD*TrD1*TrD2*TrD3*TrD4*TrD5*TrD6*TrD7*TrD8), df)
 
-#simpler model (16128 individual effects)
+#simpler model (16128 individual effects) that doesn't consider these interactions
 m2 <-lm(score ~ model*TeD*(TrD1+TrD2+TrD3+TrD4+TrD5+TrD6+TrD7+TrD8), df)
 summary(m2)
-
-# simplest model for RQ1
-# m4 <- lm(score ~ model*TeD, df)
-
-# take the number of datasets into account
-# TrDCount: numerical
-ggplot(df, aes(TrDCount, score)) + geom_smooth(se = FALSE, formula = y ~ s(x, bs = "cs", k = 4))
-
-# plot number refined parts against score
-ggplot(df, aes(RefineCount, score)) + geom_smooth(se = FALSE, formula = y ~ s(x, bs = "cs", k = 4))
-
-
-ggplot(df, aes(TrDCount)) + geom_histogram(binwidth = 5) + facet_grid(~TeD)
-
-library(gridExtra)
-
-# Plot 1
-p1 <- ggplot(df, aes(TrDCount)) + geom_histogram(binwidth = 5) + facet_grid(~TrD1, scales = "free")
-
-# Plot 2
-p2 <- ggplot(df, aes(TrDCount)) + geom_histogram(binwidth = 5) + facet_grid(~TrD2, scales = "free")
-
-# Plot 3
-p3 <- ggplot(df, aes(TrDCount)) + geom_histogram(binwidth = 5) + facet_grid(~TrD3, scales = "free")
-
-# Plot 4
-p4 <- ggplot(df, aes(TrDCount)) + geom_histogram(binwidth = 5) + facet_grid(~TrD4, scales = "free")
-
-# Plot 5
-p5 <- ggplot(df, aes(TrDCount)) + geom_histogram(binwidth = 5) + facet_grid(~TrD5, scales = "free")
-
-# Plot 6
-p6 <- ggplot(df, aes(TrDCount)) + geom_histogram(binwidth = 5) + facet_grid(~TrD6, scales = "free")
-
-# Plot 7
-p7 <- ggplot(df, aes(TrDCount)) + geom_histogram(binwidth = 5) + facet_grid(~TrD7, scales = "free")
-
-# Plot 8
-p8 <- ggplot(df, aes(TrDCount)) + geom_histogram(binwidth = 5) + facet_grid(~TrD8, scales = "free")
-
-# Combine plots into one figure
-combined_plot <- grid.arrange(p1, p2, p3, p4, p5, p6, p7, p8, nrow = 3, ncol = 3)
-
-# Display the combined plot
-print(combined_plot)
-
-# TrDCount: catergorical
-# df_subset <- subset(df, TrDCount %in% (2:7))
-
-df$TrDCount<- factor(df$TrDCount, levels = c(0:8))
-df$RefineCount <- factor(df$RefineCount, levels = c(0:4))
-# df2 <- df %>% group_by(TeD) %>% mutate_at(c('score'), ~(scale(.) %>% as.vector))
-ggplot(df, aes(TrDCount, score)) + geom_boxplot(notch = FALSE) + facet_wrap(~RefineCount)
-
-m3 <-lm(score ~ model * TeD * TrDCount * (TrD1+TrD2+TrD3+TrD4+TrD5+TrD6+TrD7) + RefineCount, df)
-m3$coefficients <- na.omit(m3$coefficients)
-summary(m3)
-anova(m3)
-
-# find out the influence of the number of training datasets
-pairs(emmeans(m3, ~RefineCount, rg.limit = 150000))
-emmeans(m3, ~RefineCount, rg.limit = 400000)
-
-#load model
-load("my_model2.rda")
-# load("my_model1.rda")
 
 #code to remove NA values
 m2$coefficients <- na.omit(m2$coefficients)
@@ -163,11 +97,18 @@ m2$coefficients <- na.omit(m2$coefficients)
 # save(m2, file="my_model2.rda")
 #save(m1, file="my_model1.rda")
 
+#load model
+# load("my_model2.rda")
+# load("my_model1.rda")
+
 #EEM
 eem_orig <- emmeans(m2, ~model, rg.limit = 20000)
-save(eem_orig, file="eem_orig_m1.rda")
-load("eem_orig_m1.rda")
+# save(eem_orig, file="eem_orig_m1.rda")
+# load("eem_orig_m1.rda")
 print(eem_orig)
+eem_orig_contrast <- pairs(eem_orig)
+print(eem_orig_contrast)
+
 #grouping results
 eem_grouped <- add_grouping(eem_orig, "TransferLearning", "model", c("SL", "SL", "SL", "TL", "TL", "TL", "TL", "TL", "TL"))
 eem_grouped <- emmeans(eem_grouped,  ~ TransferLearning)
@@ -182,8 +123,12 @@ print(eem_grouped_contrast)
 #CI for contrast
 print(confint(eem_grouped_contrast))
 
+emmip(m2,  ~ model,  rg.limit = 20000)
+
 
 # Q2
+
+# individual effects of each TrD
 e <- rbind(
   confint(pairs(emmeans(m2, ~TrD1, rg.limit = 20000))),
   confint(pairs(emmeans(m2, ~TrD2, rg.limit = 20000))),
@@ -196,29 +141,60 @@ e <- rbind(
 )
 
 print(e)
-#results plot
-
-ggplot(summary(confint(contrast)),  aes(estimate, y = contrast) ) +
-  geom_point() +
-  geom_errorbar(aes(xmin = lower.CL, xmax = upper.CL)) +
-  labs(x = "score", y = "model")
-
-ggplot(summary(confint(eem)),  aes(emmean, y = model) ) +
-  geom_point() +
-  geom_errorbar(aes(xmin = lower.CL, xmax = upper.CL)) +
-  labs(x = "score", y = "model")
-
-ggplot(summary(e),  aes(estimate, y = contrast) ) +
-  geom_point() +
-  geom_errorbar(aes(xmin = lower.CL, xmax = upper.CL)) +
-  labs(x = "score", y = "model")
 
 
-pwpp(eem, type = "response")
+# data exploration on the number of training datasets 
 
-plot(eem, comparisons = TRUE)
+# TrDCount: numerical
 
-emmip(m2,  ~ model,  rg.limit = 20000)
+# consider only TrDCount and score
+# ggplot(df, aes(TrDCount, score)) + geom_smooth(se = FALSE, formula = y ~ s(x, bs = "cs", k = 4))
+
+# see how scores are affected by TrDCount, taking into account TeD
+ggplot(df, aes(TrDCount, score, color = TeD)) + geom_smooth(se = FALSE)
+
+# see how scores are affected by TrDCount, taking into account TeD type
+ggplot(df, aes(TrDCount, score, color = TestDataType)) + geom_smooth(se = FALSE, method = 'loess')
+
+# see how scores are affected by TrDCount, taking into account Model
+ggplot(df, aes(TrDCount, score, color = model)) + geom_smooth(se = FALSE)
 
 
+# to see the TrDcount distributions over different TeD data sets
+ggplot(df, aes(TrDCount)) + geom_histogram(binwidth = 5) + facet_grid(~TeD)
+
+
+# TrDCount: catergorical
+
+# df_subset <- subset(df, TrDCount %in% (2:7))
+
+# the full model m3
+df$TrDCount<- factor(df$TrDCount, levels = c(0:8))
+df$RefineCount <- factor(df$RefineCount, levels = c(0:4))
+# df2 <- df %>% group_by(TeD) %>% mutate_at(c('score'), ~(scale(.) %>% as.vector))
+# find how RefineCount influences
+ggplot(df, aes(TrDCount, score)) + geom_boxplot(notch = FALSE) + facet_wrap(~RefineCount)
+
+m3 <-lm(score ~ model * TeD * TrDCount * (TrD1+TrD2+TrD3+TrD4+TrD5+TrD6+TrD7) + RefineCount, df)
+m3$coefficients <- na.omit(m3$coefficients)
+summary(m3)
+anova(m3)
+
+# save(m3, file="full_model.rda")
+# load("full_model.rda")
+
+
+# find out the influence of the number of refined parts
+m4 <-lm(score ~ model * TeD * (TrD1+TrD2+TrD3+TrD4+TrD5+TrD6+TrD7) + RefineCount, df)
+m4$coefficients <- na.omit(m4$coefficients)
+summary(m4)
+pairs(emmeans(m4, ~RefineCount, rg.limit = 362880))
+emmeans(m4, ~RefineCount, rg.limit = 400000)
+
+# find out the influence of the number of TrDs
+m5 <-lm(score ~ model * TeD * (TrD1+TrD2+TrD3+TrD4+TrD5+TrD6+TrD7) * TrDCount, df)
+m5$coefficients <- na.omit(m5$coefficients)
+summary(m5)
+pairs(emmeans(m5, ~TrDCount, rg.limit = 362880))
+emmeans(m5, ~TrDCount, rg.limit = 400000)
 
