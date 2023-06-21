@@ -368,9 +368,7 @@ Make a conceptual model underlying this research question
 
 ### Specific Mathematical model
 
-Describe the mathematical model that you fit on the data. Take for this the complete model that you fit on the data. Also, explain your selection for the priors. Assume Gaussian distribution for the number of page visits.
-
-I adopt linear regression model o fit the data, which can be expressed as follows:
+I adopt linear regression model to fit the data, which can be expressed as follows:
 
 y = $\beta_0$ + $\beta_1$ \* version + $\beta_2$ \* portal + $\beta_3$ \* version \* portal + $\epsilon$
 
@@ -380,8 +378,6 @@ y = $\beta_0$ + $\beta_1$ \* version + $\beta_2$ \* portal + $\beta_3$ \* versio
 -   version \* portal represents the interaction term between the website version and portal.
 -   $\beta_0$ is intercept and $\beta_1$, $\beta_2$, and $\beta_3$ are the coefficients for the three terms. I adopt Cauchy distribution for them assuming weakly informative prior, which has a large scale value has a gentle slope, letting data in the more extreme region still be of influence if the likelihood is strong here
 -   $\epsilon$ represents the error term, assumed to follow a Gaussian distribution, $\epsilon ~ Normal(0, \sigma)$.
-
-
 
 The model assumes a Gaussian distribution for the number of page visits, with relatively uninformed priors assigned to the intercept and coefficients (Beta0, Beta1, Beta2, Beta3) as well as the standard deviation (sigma). The interaction term (version * portal) captures the combined effect of the website version and portal. To account for uncertainty, a weakly informative prior is chosen for sigma using a uniform distribution with a range that encompasses a broad yet plausible set of values.
 ### Create Synthetic data

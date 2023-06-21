@@ -398,8 +398,6 @@ Make a conceptual model underlying this research question
 
 Describe the mathematical model that you fit on the data. Take for this the complete model that you fit on the data. Also, explain your selection for the priors. Assume Gaussian distribution for the number of page visits.
 
-
-
 The model can expressed as follows:
 
 pages ~ Norm(mu, sigma)
@@ -411,8 +409,6 @@ Beta0  ~ dnorm(20, 10)
 c(Beta1, Beta2, Beta3) ~ dnorm(10,10)
 
 sigma ~ dunif(0.001, 40)
-
-
 
 The model assumes a Gaussian distribution for the number of page visits, with relatively uninformed priors assigned to the intercept and coefficients (Beta0, Beta1, Beta2, Beta3) as well as the standard deviation (sigma). The interaction term (version * portal) captures the combined effect of the website version and portal. To account for uncertainty, a weakly informative prior is chosen for sigma using a uniform distribution with a range that encompasses a broad yet plausible set of values.
 
