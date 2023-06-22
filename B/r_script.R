@@ -49,6 +49,7 @@ df <- create_groups(df)
 
 
 #plots to explore the effects of model types and test data types
+ggplot(df, aes(model, score)) + geom_point(aes(color =TeD ), position = position_jitter(width = 0.25), size=1)
 ggplot(df, aes( y=score)) + geom_boxplot(notch = FALSE) + facet_wrap(~TransferLearning)
 ggplot(df, aes( y=score)) + geom_boxplot(notch = FALSE) + facet_wrap(~TestDataType)
 ggplot(df, aes(score))  + geom_histogram()  + facet_grid(~TransferLearning)

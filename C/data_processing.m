@@ -1,7 +1,7 @@
 % Specify the input 
 base_data_folder = 'data';
 inputFolder = 'chest-rays';
-outputFolder = inputFolder+"_processed";
+outputFolder = inputFolder+"_processed_full_half";
 
 process(base_data_folder,inputFolder, outputFolder)
 
@@ -53,7 +53,7 @@ end
 
 function processed_image = image_transform(image)
     image = im2gray(image);
-    outputSize = [100, 100];
+    outputSize = [150, 150];
     processed_image = imresize(image, outputSize);
 end
 

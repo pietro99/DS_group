@@ -1,27 +1,18 @@
 %specigy input folder
 base_folder = 'data';
-inputFolder = 'chest-rays';
-outputFolder = inputFolder+"_processed_150";    
+inputFolder = 'MINIST';
+outputFolder = inputFolder+"_processed";    
 
-[fl, labels] = get_file_list(base_folder, outputFolder);
+[fl, labels] = get_file_list(base_folder, inputFolder);
 [D, L, h, w, d] = get_data_matrix(fl, labels);
 
 
 %%
-num_of_rand = 500;
-rand_pixels = randperm(size(D, 1),num_of_rand);
-rand_images = randperm(size(D, 2),num_of_rand);
-
-D_sampled_img =D(:,rand_images);
-D_sampled_pixels =D(rand_pixels,:);
 %PCA, Newdata = calc_mapping(10, D);
 
 %%
 
 Data_matrix = D;
-%%
-
-U = nystrom(1000, Data_matrix');
 
 
 %%
@@ -41,25 +32,13 @@ image_reference =  uint8(reshape(Data_matrix(:, 1), h, w, d)*255);
 image_reference_diff =  uint8(reshape(M(:,1), h, w, d)*255);
 %imshow(image_reference)
 %imshow(image_reference_diff)
-
 %%
-%compute covariance matrix
-C =  (1/(m-1)) * (M*M');
+U = nystrom(500, M');
 
 
 
 
-%%
-%compute eigenvalues and eigenvectors
-num_of_eigenvec = 10;
-[Vec, D_val] = eigs(C,num_of_eigenvec );
-eig_vals = diag(D_val);
 
-%%
-%compute basis vectors
-U = Vec;
-
-%U = (1 ./ sqrt(eig_vals))' .* (M * Vec);
 
 %%
 %get eigenvectors weights for image
@@ -74,7 +53,7 @@ weights = new_dim(:,image_index);
 
 %show original image
 %imshow(reshape(Data_matrix(:, image_index), h, w, d));
-%scatter(new_dim(1,:), new_dim(2,:), 25, L, 'filled')
+scatter(new_dim(1,:), new_dim(2,:), 25, L, 'filled')
 %scatter3(new_dim(1,:), new_dim(2,:),new_dim(3,:), 25, L, 'filled')
 
 %%
@@ -132,16 +111,16 @@ projected_images = rescale(((new_dim' * U')+D_means')', 0,1);
 distances = sqrt(sum((Data_matrix - projected_images).^2, 1));
 [max_val, max_index] = max(distances);
 [min_val, min_index] = min(distances);
-save("distance-"+inputFolder+".mat","distances")
+save("distance-"+inputFolder+"Nystrom.mat","distances")
 
 subplot(1, 2, 1);
 
 image_index = 300;
 
-imshow(uint8(reshape(rescale(projected_images(:, max_index), 0, 1), h, w, d)*255));
+imshow(uint8(reshape(rescale(projected_images(:, min_index), 0, 1), h, w, d)*255));
 
 subplot(1, 2, 2);
-imshow(uint8(reshape(Data_matrix(:,max_index), h, w, d)*255));
+imshow(uint8(reshape(Data_matrix(:,min_index), h, w, d)*255));
 
 
 %%
@@ -174,7 +153,7 @@ ylabel("distance")
 
 
 %%
-function [PCA] = nystrom(l,Data_matrix)
+function [U] = nystrom(l,Data_matrix)
     [m, n] = size(Data_matrix);
     permutation_pixels = randperm(size(Data_matrix, 1));
     l_rand_pixels = permutation_pixels(1:l);
@@ -195,7 +174,7 @@ function [PCA] = nystrom(l,Data_matrix)
 
     UA = eig_vec;
     UB = B * UA * inv(eig_val); 
-    PCA = [UA; UB];
+    U = [UA; UB];
 
 
 end
