@@ -864,7 +864,9 @@ Then we plot a box plot and a scatter plot to visualize the relationship between
 ```{r echo = T, results = 'hide'}
 library(nlme)
 library(pander)
+set.seed(1)
 ctrl <- lmeControl(opt='optim');
+set0$subject <- factor(set0$subject, c(1:23))
 
 set.seed(1)
 freq_m1 <- lme(score ~ 1,
@@ -883,23 +885,27 @@ freq_m2 <- lme(score ~ session,
 ```
 
 ```{r echo = T}
+library(car)
 sm1 <- summary(freq_m1)
 sm2 <- summary(freq_m2)
-pander(sm1$tTable, caption="model 1")
-pander(sm2$tTable, caption="model 2")
 
 pander(anova(freq_m1, freq_m2), caption="models comparison")
+leveneTest(score ~ subject, set0)
+
+print(sm2)
+pander(sm2$tTable, caption="model 2")
+intervals(freq_m2)
 
 #include your code and output in the document
 ```
 
-The first model only finds a fixed intercept with value 19.8 but no slope. The second model, which is a bit more complicated, takes into account the effect that session has on the score and found a slope of 0.991 with an intercept of 13.17. The second model is able to perform much better than the first one as indicated by the AIC scores of 939.2 and 1660 respectively.
+The first model only finds a fixed intercept with value 19.8 but no slope. The second model, which is a bit more complicated, takes into account the effect that session has on the score and found a slope of 0.991 (p < 0.0001) with an intercept of 13.17 (SD = 3.84, 95% CI = [11.57, 14,76]). The second model is able to perform much better than the first one as indicated by the AIC scores of 939.2 and 1660 respectively. So we can conclude that the session indeed has an impact on the score. Levene's test shows that the variances of the subjects are indeed equal (p > 0.05). Between the subjects there is a standard deviation of 3.84.
 
 ### Report section for a scientific publication
 
-We constructed a multi-level regression model and the experiment showed a significant association between the session number and the score (t(260, N=284)=15.48, p\<0.0001) for the intercept of value 13.17 and (t(260, N=284)=15.48, p\<0.0001) for the slope of value 0.99.
+We constructed a multi-level regression model and the experiment showed a significant association between the session number and the score  for the intercept of value 13.17 (t(260, N=284)=16.18, p\<0.0001) and the slope of value 0.991 (t(260, N=284)=62.4, p\<0.0001).
 
-The relationship between sessions and scores show significant variance across subjects in the intercept SD=4.03 (95% CI: 2.99, 5.41) and in the slope SD=0.04 (95% CI: 0.01, 0.12) and the slopes and intercepts were negatively significantly correlated (cor=-.81).
+The relationship between sessions and scores show significant variance across subjects in the intercept SD=3.84 (95% CI: 2.87, 5.41) and in the slope SD=0.015 (95% CI: 0.01, 0.12). The slopes and intercepts were negatively significantly correlated (cor=-.13).
 
 ## Bayesian approach
 
